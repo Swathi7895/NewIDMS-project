@@ -69,7 +69,7 @@ export default function BankDocumentsPage() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const result = await response.json();
-      const mapped = result.map((item: any) => ({
+      const mapped = result.map((item: BankDocument) => ({
         ...item,
         date: Array.isArray(item.date)
           ? `${item.date[0]}-${String(item.date[1]).padStart(2, '0')}-${String(item.date[2]).padStart(2, '0')}`

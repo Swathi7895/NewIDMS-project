@@ -27,9 +27,12 @@ export default function StoreLayout({
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 flex items-center space-x-2"> {/* Added space-x-2 for icon */}
               {/* <AdminIcon className="h-6 w-6 text-white" /> Uncomment and replace with actual icon */}
-              <h1 className="text-2xl font-extrabold text-white tracking-wide">
+              <button
+                onClick={() => router.push('/admin')}
+                className="text-2xl font-extrabold text-white tracking-wide hover:text-blue-200 transition-colors duration-200 cursor-pointer"
+              >
                 Admin Portal
-              </h1>
+              </button>
             </div>
             <div className="flex items-center">
               <button

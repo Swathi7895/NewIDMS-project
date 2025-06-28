@@ -122,7 +122,7 @@ export default function LabInstrumentsPage() {
       setLoading(false);
       setIsInitialLoad(false);
     }
-  }, []); // Empty dependency array since we don't need any reactive dependencies
+  }, [isInitialLoad]);
 
   // Load items only once on component mount
   useEffect(() => {

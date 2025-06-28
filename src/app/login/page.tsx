@@ -11,12 +11,6 @@ interface FormData {
   password: string;
 }
 
-interface LoginResponse {
-  token: string;
-  message?: string;
-  roles: string[];
-}
-
 export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -110,31 +104,49 @@ export default function LoginPage() {
         return;
       }
 
-      const data: any = await response.json();
+      const data: unknown = await response.json();
 
-      if (response.ok) {
-        // Store authentication data
-        sessionStorage.setItem('token', data.token);
-        sessionStorage.setItem('userEmail', formData.email);
-        sessionStorage.setItem('roles', JSON.stringify(data.roles));
-        
-        // Show success message
-        toast.success('Login successful!');
-        
-        // If employee login, store employeeId and employeeProfile from response
-        if (loginAsEmployee && data.employeeId) {
-          sessionStorage.setItem('employeeId', data.employeeId);
-          sessionStorage.setItem('employeeProfile', JSON.stringify(data));
-          console.log('Logged in employeeId:', data.employeeId);
-          // Redirect to employee profile page
-          router.replace('/employee');
-          return;
+      if (response.ok && typeof data === 'object' && data !== null) {
+        // Handle employee login (different response structure)
+        if (loginAsEmployee) {
+          // Employee login response structure
+          if ('employeeId' in data && typeof (data as { employeeId?: unknown }).employeeId === 'string') {
+            // Store employee data
+            sessionStorage.setItem('employeeId', (data as { employeeId: string }).employeeId);
+            sessionStorage.setItem('employeeProfile', JSON.stringify(data));
+            sessionStorage.setItem('userEmail', formData.email);
+            // Set a default role for employees
+            sessionStorage.setItem('roles', JSON.stringify(['EMPLOYEE']));
+            
+            console.log('Logged in employeeId:', (data as { employeeId: string }).employeeId);
+            toast.success('Employee login successful!');
+            // Redirect to employee profile page
+            router.replace('/employee');
+            return;
+          } else {
+            toast.error('Invalid employee login response. Please try again.');
+            return;
+          }
         }
-        // Redirect based on role
-        redirectBasedOnRole(data.roles);
+        
+        // Handle admin login (requires token and roles)
+        if ('token' in data && 'roles' in data) {
+          // Store authentication data
+          sessionStorage.setItem('token', (data as { token: string }).token);
+          sessionStorage.setItem('userEmail', formData.email);
+          sessionStorage.setItem('roles', JSON.stringify((data as { roles: string[] }).roles));
+          
+          // Show success message
+          toast.success('Login successful!');
+          
+          // Redirect based on role
+          redirectBasedOnRole((data as { roles: string[] }).roles);
+        } else {
+          toast.error('Invalid login response. Please try again.');
+        }
       } else {
         // Handle API error responses
-        const errorMessage = data.message || 'Login failed. Please check your credentials.';
+        const errorMessage = typeof data === 'object' && data !== null && 'message' in data ? (data as { message?: string }).message || 'Login failed. Please check your credentials.' : 'Login failed. Please check your credentials.';
         toast.error(errorMessage);
         
         // Clear any existing tokens on failed login
@@ -281,7 +293,7 @@ export default function LoginPage() {
        
 
         <div className="mt-6 text-center">
-          <span className="text-gray-600">Don't have an account? </span>
+          <span className="text-gray-600">Don&apos;t have an account? </span>
           <Link href="/register" className="text-indigo-600 hover:underline font-medium">Create one</Link>
         </div>
       </div>

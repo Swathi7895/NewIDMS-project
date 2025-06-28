@@ -38,27 +38,6 @@ interface ApiEmployeeResponse extends Omit<Employee, 'joiningDate' | 'status'> {
   status: string;
 }
  
-interface ApiEmployeeRequest extends Omit<Employee, 'id' | 'joiningDate' | 'status'> {
-  joiningDate: string;
-  status: string;
-}
- 
-const transformEmployeeToApiRequest = (employee: Omit<Employee, 'id'>): ApiEmployeeRequest => ({
-  employeeId: employee.employeeId,
-  employeeName: employee.employeeName,
-  email: employee.email,
-  password:employee.password,
-  phoneNumber: employee.phoneNumber,
-  bloodGroup: employee.bloodGroup,
-  currentAddress: employee.currentAddress,
-  permanentAddress: employee.permanentAddress,
-  position: employee.position,
-  department: employee.department,
-  joiningDate: employee.joiningDate,
-  status: employee.status,
-  profilePhotoUrl: employee.profilePhotoUrl,
-});
- 
 const transformEmployeeFromApiResponse = (apiEmployee: ApiEmployeeResponse): Employee => ({
   id: apiEmployee.id,
   employeeId: apiEmployee.employeeId,
@@ -89,9 +68,7 @@ const employeesAPI = {
  
   create: async (employee: Omit<Employee, 'id'>, profilePhotoFile?: File | null): Promise<Employee> => {
     const formData = new FormData();
-    const { profilePhotoUrl, ...employeeObj } = employee;
-    console.log("Sending this employee object:", employeeObj);
-    formData.append('employee', JSON.stringify(employeeObj));
+    formData.append('employee', JSON.stringify(employee));
     if (profilePhotoFile) {
       formData.append('photo', profilePhotoFile);
     }
@@ -108,9 +85,7 @@ const employeesAPI = {
  
   update: async (id: string, employee: Omit<Employee, 'id'>, profilePhotoFile?: File | null): Promise<Employee> => {
     const formData = new FormData();
-    const { profilePhotoUrl, ...employeeObj } = employee;
-    formData.append('employee', JSON.stringify(employeeObj));
- 
+    formData.append('employee', JSON.stringify(employee));
     if (profilePhotoFile) {
       formData.append('photo', profilePhotoFile);
     }

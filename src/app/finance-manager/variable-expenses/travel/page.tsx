@@ -74,7 +74,7 @@ export default function TravelPage() {
     if (!newExpense.date || !newExpense.amount || !newExpense.description) return;
     try {
       const added = await travelAPI.create({
-        date: newExpense.date as any, // Pass as string, API layer will convert
+        date: newExpense.date.split('-').map(Number) as [number, number, number],
         amount: parseFloat(newExpense.amount),
         description: newExpense.description,
       });
@@ -108,7 +108,7 @@ export default function TravelPage() {
     if (!newExpense.date || !newExpense.amount || !newExpense.description || editingId === null) return;
     try {
       const updated = await travelAPI.update(editingId, {
-        date: newExpense.date as any, // Pass as string, API layer will convert
+        date: newExpense.date.split('-').map(Number) as [number, number, number],
         amount: parseFloat(newExpense.amount),
         description: newExpense.description,
       });

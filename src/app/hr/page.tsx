@@ -50,7 +50,7 @@ export default function HRDashboard() {
   const [errorStats, setErrorStats] = useState<string | null>(null);
 
   // State for recent activities
-  const [activities, setActivities] = useState<any[]>([]);
+  const [activities, setActivities] = useState<Record<string, unknown>[]>([]);
   const [loadingActivities, setLoadingActivities] = useState(true);
   const [errorActivities, setErrorActivities] = useState<string | null>(null);
 
@@ -62,12 +62,12 @@ export default function HRDashboard() {
       .then(data => {
         setTotalWorkforce(data.length);
         // Unique departments
-        setDepartments(Array.from(new Set(data.map((e: any) => e.department))));
+        setDepartments(Array.from(new Set(data.map((e: Record<string, unknown>) => typeof e.department === 'string' ? e.department : ''))));
         // New hires in last 30 days
         const now = new Date();
-        const hires = data.filter((e: any) => {
+        const hires = data.filter((e: Record<string, unknown>) => {
           if (!e.joiningDate) return false;
-          const joinDate = new Date(e.joiningDate);
+          const joinDate = new Date(typeof e.joiningDate === 'string' ? e.joiningDate : '');
           return (now.getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24) <= 30;
         });
         setNewHires(hires.length);
@@ -120,6 +120,10 @@ export default function HRDashboard() {
       <p className="text-sm text-gray-600">{description}</p>
     </a>
   );
+
+  const isValidStatus = (status: unknown): status is 'completed' | 'pending' | 'rejected' => {
+    return status === 'completed' || status === 'pending' || status === 'rejected';
+  };
 
   const RecentActivity = ({ icon: Icon, title, time, status }: RecentActivityProps) => (
     <div className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
@@ -243,11 +247,11 @@ export default function HRDashboard() {
                 <div className="space-y-2">
                   {activities.map((activity, idx) => (
                     <RecentActivity
-                      key={activity.id || idx}
+                      key={typeof activity.id === 'string' ? activity.id : idx}
                       icon={Award} // You can map activity type to icon if available
-                      title={activity.title || activity.activityName || 'Activity'}
-                      time={activity.date ? new Date(activity.date).toLocaleString() : ''}
-                      status={activity.status || 'completed'}
+                      title={typeof activity.title === 'string' ? activity.title : (typeof activity.activityName === 'string' ? activity.activityName : 'Activity')}
+                      time={typeof activity.date === 'string' ? new Date(activity.date).toLocaleString() : ''}
+                      status={isValidStatus(activity.status) ? activity.status : 'completed'}
                     />
                   ))}
                 </div>

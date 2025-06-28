@@ -77,12 +77,23 @@ export default function BankDocumentsPage() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const result = await response.json();
-      const mapped = result.map((item: any) => ({
-        ...item,
-        date: Array.isArray(item.date)
-          ? `${item.date[0]}-${String(item.date[1]).padStart(2, '0')}-${String(item.date[2]).padStart(2, '0')}`
-          : item.date
-      }));
+      function isBankDocument(item: unknown): item is BankDocument {
+        return (
+          typeof item === 'object' && item !== null &&
+          'id' in item && 'documentType' in item && 'bankName' in item && 'accountNumber' in item && 'date' in item && 'status' in item
+        );
+      }
+      const mapped = result.map((item: unknown) => {
+        if (isBankDocument(item)) {
+          return {
+            ...item,
+            date: Array.isArray(item.date)
+              ? `${item.date[0]}-${String(item.date[1]).padStart(2, '0')}-${String(item.date[2]).padStart(2, '0')}`
+              : item.date
+          };
+        }
+        return null;
+      }).filter(Boolean) as BankDocument[];
       setData(mapped);
     } catch (e: Error | unknown) {
       const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';

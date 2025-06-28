@@ -106,30 +106,39 @@ export default function ReportsPage() {
     setLoading(true);
     setError(null);
     
-    // Use employee-specific endpoint
-    let url = `${BASE_URL}/employee/${employeeId}`;
-    const params = new URLSearchParams();
- 
-    if (selectedType !== 'all') {
-      params.append('type', selectedType);
-    }
-    if (selectedType === 'employee' && selectedSubtype !== 'all') {
-      params.append('subtype', selectedSubtype);
-    }
- 
-    if (params.toString()) {
-      url += `?${params.toString()}`;
-    }
- 
     try {
+      // First, try to fetch all reports for the employee
+      const url = `${BASE_URL}/employee/${employeeId}`;
+      
+      console.log('Fetching reports with URL:', url);
+      console.log('Selected type:', selectedType);
+      console.log('Selected subtype:', selectedSubtype);
+ 
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data: Report[] = await response.json();
-      setReports(data);
-    } catch (err: any) {
-      setError(`Failed to fetch reports: ${err.message}`);
+      const allReports: Report[] = await response.json();
+      console.log('Received all reports:', allReports);
+ 
+      // Apply client-side filtering
+      let filteredReports = allReports;
+      
+      // Filter by type
+      if (selectedType !== 'all') {
+        filteredReports = filteredReports.filter(report => report.type === selectedType);
+      }
+      
+      // Filter by subtype (only for employee reports)
+      if (selectedType === 'employee' && selectedSubtype !== 'all') {
+        filteredReports = filteredReports.filter(report => report.subtype === selectedSubtype);
+      }
+      
+      console.log('Filtered reports:', filteredReports);
+      setReports(filteredReports);
+      
+    } catch (err: unknown) {
+      setError(`Failed to fetch reports: ${err instanceof Error ? err.message : 'Unknown error'}`);
       console.error("Error fetching reports:", err);
     } finally {
       setLoading(false);
@@ -188,8 +197,8 @@ export default function ReportsPage() {
         status: 'draft'
       });
       setError(null); // Clear any previous errors
-    } catch (err: any) {
-      setError(`Error submitting report: ${err.message}`);
+    } catch (err: unknown) {
+      setError(`Error submitting report: ${err instanceof Error ? err.message : 'Unknown error'}`);
       console.error("Error submitting report:", err);
     }
   };
@@ -210,8 +219,8 @@ export default function ReportsPage() {
  
       setReports(reports.filter(report => report.id !== id));
       setError(null);
-    } catch (err: any) {
-      setError(`Error deleting report: ${err.message}`);
+    } catch (err: unknown) {
+      setError(`Error deleting report: ${err instanceof Error ? err.message : 'Unknown error'}`);
       console.error("Error deleting report:", err);
     }
   };
@@ -438,6 +447,7 @@ export default function ReportsPage() {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => {
+                    console.log('Setting filter to: all');
                     setSelectedType('all');
                     setSelectedSubtype('all');
                   }}
@@ -451,6 +461,7 @@ export default function ReportsPage() {
                   <button
                     key={type.id}
                     onClick={() => {
+                      console.log('Setting filter to:', type.id);
                       setSelectedType(type.id);
                       setSelectedSubtype('all');
                     }}
@@ -470,7 +481,10 @@ export default function ReportsPage() {
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                 <div className="flex flex-wrap gap-2">
                   <button
-                    onClick={() => setSelectedSubtype('all')}
+                    onClick={() => {
+                      console.log('Setting subtype to: all');
+                      setSelectedSubtype('all');
+                    }}
                     className={`px-3 py-1 rounded-lg ${
                       selectedSubtype === 'all' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'
                     }`}
@@ -480,7 +494,10 @@ export default function ReportsPage() {
                   {employeeSubtypes.map(subtype => (
                     <button
                       key={subtype.id}
-                      onClick={() => setSelectedSubtype(subtype.id)}
+                      onClick={() => {
+                        console.log('Setting subtype to:', subtype.id);
+                        setSelectedSubtype(subtype.id);
+                      }}
                       className={`px-3 py-1 rounded-lg flex items-center space-x-2 ${
                         selectedSubtype === subtype.id ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'
                       }`}

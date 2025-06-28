@@ -32,21 +32,13 @@ function mapApiDocumentToDocument(api: ApiDocument): Document {
   };
 }
 
-const documentTypeMap: Record<string, string> = {
-  resume: 'RESUME',
-  marksCard: 'MARKS',
-  idProof: 'IDPROOF',
-  offerLetter: 'OFFER',
-  // Add more mappings as needed
-};
-
 export default function DocumentsPage() {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [apiDocuments, setApiDocuments] = useState<ApiDocument[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [apiBaseUrl, setApiBaseUrl] = useState<string | null>(null);
-  const [downloadingId, setDownloadingId] = useState<number | null>(null);
+  const [downloadingId] = useState<number | null>(null);
 
   useEffect(() => {
     const employeeId = sessionStorage.getItem('employeeId') || localStorage.getItem('employeeId');
@@ -67,7 +59,7 @@ export default function DocumentsPage() {
         setApiDocuments(response.data);
         setDocuments(response.data.map(mapApiDocumentToDocument));
         setError(null);
-      } catch (err) {
+      } catch {
         setError('Failed to fetch documents. Make sure backend is running.');
         setDocuments([]);
         setApiDocuments([]);

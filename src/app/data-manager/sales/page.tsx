@@ -61,8 +61,8 @@ export default function SalesPage() {
           : item.date
       }));
       setData(mapped);
-    } catch (e: any) {
-      setError(`Failed to fetch sales: ${e.message}`);
+    } catch (e: unknown) {
+      setError(`Failed to fetch sales: ${e instanceof Error ? e.message : 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -122,8 +122,8 @@ export default function SalesPage() {
         }
         setData(prev => prev.filter(i => i.id !== item.id));
         alert('Sale deleted successfully!');
-      } catch (e: any) {
-        alert(`Failed to delete sale: ${e.message}`);
+      } catch (e: unknown) {
+        alert(`Failed to delete sale: ${e instanceof Error ? e.message : 'Unknown error'}`);
       }
     }
   };
@@ -166,8 +166,8 @@ export default function SalesPage() {
       }
       setIsFormOpen(false);
       setSelectedSale(null);
-    } catch (e: any) {
-      alert(`Failed to save sale: ${e.message}`);
+    } catch (e: unknown) {
+      alert(`Failed to save sale: ${e instanceof Error ? e.message : 'Unknown error'}`);
     }
   };
 

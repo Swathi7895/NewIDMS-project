@@ -16,6 +16,7 @@ interface Leave {
 }
  
 interface Holiday {
+  id?: number;
   name: string;
   date: string;
   day: string;
@@ -50,7 +51,7 @@ function formatDate(dateString: string) {
   if (!dateString) return '';
   // Try to parse as YYYYMMDD or fallback to Date
   if (/^\d{7,8}$/.test(dateString)) {
-    let str = dateString.padStart(8, '0');
+    const str = dateString.padStart(8, '0');
     return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
   }
   const d = new Date(dateString);
@@ -67,13 +68,7 @@ function getDayOfWeekFromDateString(dateString: string) {
   return !isNaN(dateObj.getTime()) ? days[dateObj.getDay()] : '';
 }
  
-function arrayToDateString(arr: number[]) {
-  if (!Array.isArray(arr) || arr.length !== 3) return '';
-  const [year, month, day] = arr;
-  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-}
- 
-function normalizeDate(date: any) {
+function normalizeDate(date: unknown) {
   if (Array.isArray(date) && date.length === 3) {
     const [year, month, day] = date;
     return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -124,22 +119,22 @@ const LeaveManagementSystem = () => {
         if (!res.ok) throw new Error('Failed to fetch leave requests');
         const apiLeaves = await res.json();
         // Map API data to Leave interface
-        const mappedLeaves = apiLeaves.map((item: any) => ({
-          id: item.id,
-          employeeId: item.employeeId,
-          name: item.employeeName || '',
-          type: item.leaveType,
-          startDate: item.startDate,
-          endDate: item.endDate,
-          days: item.numberOfDays,
-          status: item.status.toLowerCase(),
-          reason: item.reason,
-          rejectionReason: item.status === 'REJECTED' ? item.hrComments : undefined,
+        const mappedLeaves = apiLeaves.map((item: Record<string, unknown>) => ({
+          id: item.id as string,
+          employeeId: item.employeeId as string,
+          name: typeof item.employeeName === 'string' ? item.employeeName : '',
+          type: typeof item.leaveType === 'string' ? item.leaveType : '',
+          startDate: typeof item.startDate === 'string' ? item.startDate : '',
+          endDate: typeof item.endDate === 'string' ? item.endDate : '',
+          days: typeof item.numberOfDays === 'number' ? item.numberOfDays : 0,
+          status: typeof item.status === 'string' ? item.status.toLowerCase() : 'pending',
+          reason: typeof item.reason === 'string' ? item.reason : '',
+          rejectionReason: item.status === 'REJECTED' && typeof item.hrComments === 'string' ? item.hrComments : undefined,
         }));
         // Separate into approved, pending and rejected
-        const approved = mappedLeaves.filter((l: any) => l.status === 'approved');
-        const pending = mappedLeaves.filter((l: any) => l.status === 'pending');
-        const rejected = mappedLeaves.filter((l: any) => l.status === 'rejected');
+        const approved = mappedLeaves.filter((l: Leave) => l.status === 'approved');
+        const pending = mappedLeaves.filter((l: Leave) => l.status === 'pending');
+        const rejected = mappedLeaves.filter((l: Leave) => l.status === 'rejected');
         setLeaveData(prev => ({
           ...prev,
           approved,
@@ -311,7 +306,7 @@ const LeaveManagementSystem = () => {
         if (!res.ok) throw new Error('Failed to fetch holidays');
         const apiHolidays = await res.json();
         // Map API data to Holiday interface
-        const mappedHolidays = apiHolidays.map((item: any) => ({
+        const mappedHolidays = apiHolidays.map((item: Record<string, unknown>) => ({
           name: item.holidayName,
           date: normalizeDate(item.startDate),
           day: item.day,
@@ -331,7 +326,8 @@ const LeaveManagementSystem = () => {
   }, []);
  
   // Delete holiday
-  const deleteHoliday = async (holidayId: number) => {
+  const deleteHoliday = async (holidayId: number | undefined) => {
+    if (typeof holidayId !== 'number') return;
     if (window.confirm('Are you sure you want to delete this holiday?')) {
       try {
         const res = await fetch(`http://localhost:8080/api/holidays/${holidayId}`, {
@@ -340,7 +336,7 @@ const LeaveManagementSystem = () => {
         if (!res.ok) throw new Error('Failed to delete holiday');
         setLeaveData(prev => ({
           ...prev,
-          holidays: prev.holidays.filter((h: any) => h.id !== holidayId),
+          holidays: prev.holidays.filter((h: Holiday) => h.id !== holidayId),
         }));
         alert('Holiday deleted successfully');
       } catch (error) {
@@ -351,20 +347,16 @@ const LeaveManagementSystem = () => {
   };
  
   // Edit holiday (open modal with holiday data)
-  const [editHoliday, setEditHoliday] = useState<any>(null);
+  const [editHoliday, setEditHoliday] = useState<Holiday | null>(null);
   const [showEditHolidayModal, setShowEditHolidayModal] = useState(false);
  
  
-  const handleEditHoliday = (holiday: any) => {
-    setEditHoliday({
-      ...holiday,
-      date: formatDate(holiday.date)
-    });
-    setShowEditHolidayModal(true);
+  const handleEditHoliday = (holiday: Holiday) => {
+    setEditHoliday(holiday);
   };
  
   const updateHoliday = async () => {
-    if (!editHoliday.name || !editHoliday.date) {
+    if (!editHoliday || !editHoliday.name || !editHoliday.date || editHoliday.id === undefined) {
       alert('Please fill in all required fields');
       return;
     }
@@ -389,7 +381,7 @@ const LeaveManagementSystem = () => {
       const updated = await res.json();
       setLeaveData(prev => ({
         ...prev,
-        holidays: prev.holidays.map((h: any) => h.id === editHoliday.id ? {
+        holidays: prev.holidays.map((h) => h.id === editHoliday.id ? {
           ...h,
           name: updated.holidayName,
           date: updated.startDate, // should be YYYY-MM-DD
@@ -473,7 +465,7 @@ const LeaveManagementSystem = () => {
         </thead>
         <tbody>
           {isHoliday ? (
-            (leaves as any[]).map((holiday, index) => (
+            (leaves as Holiday[]).map((holiday, index) => (
               <tr key={holiday.id || index} className="hover:bg-gray-50 transition-colors duration-200 border-b border-gray-100">
                 <td className="px-4 py-3">{holiday.name}</td>
                 <td className="px-4 py-3">{formatDate(holiday.date)}</td>
@@ -486,9 +478,11 @@ const LeaveManagementSystem = () => {
                     <ActionButton variant="view" onClick={() => handleEditHoliday(holiday)}>
                       Edit
                     </ActionButton>
-                    <ActionButton variant="reject" onClick={() => deleteHoliday(holiday.id)}>
-                      Delete
-                    </ActionButton>
+                    {typeof holiday.id === 'number' && (
+                      <ActionButton variant="reject" onClick={() => deleteHoliday(holiday.id)}>
+                        Delete
+                      </ActionButton>
+                    )}
                   </div>
                 </td>
               </tr>
@@ -784,8 +778,8 @@ const LeaveManagementSystem = () => {
                   </label>
                   <input
                     type="text"
-                    value={editHoliday.name}
-                    onChange={e => setEditHoliday((prev: any) => ({ ...prev, name: e.target.value }))}
+                    value={editHoliday ? editHoliday.name : ''}
+                    onChange={e => setEditHoliday((prev) => prev ? { ...prev, name: e.target.value } : null)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="e.g., Republic Day"
                   />
@@ -796,11 +790,11 @@ const LeaveManagementSystem = () => {
                   </label>
                   <input
                     type="date"
-                    value={formatDate(editHoliday.date)}
+                    value={editHoliday ? formatDate(editHoliday.date) : ''}
                     onChange={e => {
                       const newDate = e.target.value; // always in YYYY-MM-DD
                       const dayOfWeek = getDayOfWeekFromDateString(newDate);
-                      setEditHoliday((prev: any) => ({ ...prev, date: newDate, day: dayOfWeek }));
+                      setEditHoliday((prev) => prev ? { ...prev, date: newDate, day: dayOfWeek } : null);
                     }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                   />
@@ -811,8 +805,8 @@ const LeaveManagementSystem = () => {
                   </label>
                   <input
                     type="text"
-                    value={editHoliday.day}
-                    onChange={e => setEditHoliday((prev: any) => ({ ...prev, day: e.target.value }))}
+                    value={editHoliday ? editHoliday.day : ''}
+                    onChange={e => setEditHoliday((prev) => prev ? { ...prev, day: e.target.value } : null)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="e.g., Monday"
                   />
@@ -822,8 +816,8 @@ const LeaveManagementSystem = () => {
                     Type
                   </label>
                   <select
-                    value={editHoliday.type}
-                    onChange={e => setEditHoliday((prev: any) => ({ ...prev, type: e.target.value }))}
+                    value={editHoliday ? editHoliday.type : ''}
+                    onChange={e => setEditHoliday((prev) => prev ? { ...prev, type: e.target.value } : null)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="National Holiday">National Holiday</option>
@@ -836,8 +830,8 @@ const LeaveManagementSystem = () => {
                     Coverage
                   </label>
                   <select
-                    value={editHoliday.coverage}
-                    onChange={e => setEditHoliday((prev: any) => ({ ...prev, coverage: e.target.value }))}
+                    value={editHoliday ? editHoliday.coverage : ''}
+                    onChange={e => setEditHoliday((prev) => prev ? { ...prev, coverage: e.target.value } : null)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="All Employees">All Employees</option>

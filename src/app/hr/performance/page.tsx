@@ -38,7 +38,7 @@ function formatDate(dateString?: string) {
   if (!dateString) return '';
   // If it's a number string like 2025614, pad and format
   if (/^\d{7,8}$/.test(dateString)) {
-    let str = dateString.padStart(8, '0');
+    const str = dateString.padStart(8, '0');
     return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
   }
   // Try to parse as date

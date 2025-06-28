@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Calendar,
   FileText,
@@ -27,10 +27,25 @@ interface QuickLink {
   color: string;
 }
  
+interface Employee {
+  employeeName: string;
+  position: string;
+  department: string;
+  email: string;
+  phoneNumber: string;
+  bloodGroup: string;
+  profilePhotoUrl: string;
+  currentAddress: string;
+  permanentAddress: string;
+  joiningDate: string;
+  relievingDate: string;
+  status: string;
+}
+ 
 export default function EmployeeDashboard() {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
-  const [employee, setEmployee] = useState<any | null>(null);
+  const [employee, setEmployee] = useState<Employee | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editedProfile, setEditedProfile] = useState({
@@ -101,7 +116,7 @@ export default function EmployeeDashboard() {
     }
   ];
  
-  const fetchEmployee = async () => {
+  const fetchEmployee = useCallback(async () => {
     setLoading(true);
     setError(null);
     const employeeId = sessionStorage.getItem("employeeId");
@@ -133,16 +148,16 @@ export default function EmployeeDashboard() {
       } else {
         setProfilePhoto('');
       }
-    } catch (e: any) {
-      setError(e.message || "Error fetching employee data");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Error fetching employee data");
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
  
   useEffect(() => {
     fetchEmployee();
-  }, [router]);
+  }, [router, fetchEmployee]);
  
   if (loading) {
     return (
@@ -152,19 +167,8 @@ export default function EmployeeDashboard() {
     );
   }
  
-  const handleEdit = () => {
-    setIsEditing(true);
-    setError(null);
-  };
- 
-  const handleSave = () => {
-    // Here you would typically make an API call to update the profile
-    setIsEditing(false);
-    // Show success message or handle the update response
-    alert('Profile updated successfully!');
-  };
- 
   const handleCancel = () => {
+    if (!employee) return;
     setEditedProfile({
       employeeName: employee.employeeName,
       position: employee.position,
@@ -372,7 +376,6 @@ export default function EmployeeDashboard() {
                         </div>
                         <div className="flex items-center space-x-2">
                           <Briefcase className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600">ID: {employee.employeeId}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                           <span className="font-semibold">Blood Group:</span>

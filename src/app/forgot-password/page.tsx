@@ -25,7 +25,7 @@ export default function ForgotPasswordPage() {
       }
       toast.success("Reset instructions sent! Check your email.");
       setTimeout(() => router.push("/reset-password"), 2000);
-    } catch (err) {
+    } catch {
       toast.error("An error occurred. Please try again.");
     } finally {
       setLoading(false);

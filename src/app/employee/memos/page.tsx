@@ -61,7 +61,7 @@ export default function EmployeeMemosPage() {
         setError(null);
         const response = await axios.get(`${API_BASE_URL}/memos/employee/${employeeId}`);
         setMemos(Array.isArray(response.data) ? response.data : []);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Failed to fetch memos:', err);
         setError('Failed to load memos. Please try again.');
         setMemos([]);
@@ -156,7 +156,7 @@ export default function EmployeeMemosPage() {
                 <div className="text-center py-12">
                   <MessageSquare className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-gray-900">No memos found</h3>
-                  <p className="text-gray-500 mt-1">You don't have any memos or announcements yet.</p>
+                  <p className="text-gray-500 mt-1">You don&apos;t have any memos or announcements yet.</p>
                 </div>
               ) : (
                 memos.map((memo) => {

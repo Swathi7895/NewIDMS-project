@@ -18,6 +18,19 @@ interface Tender {
   status: 'Open' | 'Closed' | 'Cancelled' | 'Awarded';
 }
 
+// API response type
+interface TenderApi {
+  id: number;
+  tenderNumber: string;
+  title: string;
+  organization: string;
+  submissionDate: string;
+  openingDate: string;
+  estimatedValue: string; // string from API
+  category: string;
+  status: 'Open' | 'Closed' | 'Cancelled' | 'Awarded';
+}
+
 const viewFields: ViewField[] = [
   { name: 'tenderNumber', label: 'Tender Number', type: 'text' },
   { name: 'title', label: 'Title', type: 'text' },
@@ -55,10 +68,10 @@ export default function TenderManagementPage() {
       }
       const result = await response.json();
       // Ensure numerical values are correctly parsed if they might come as strings from API
-      const processedResult = result.map((item: any) => ({
+      const processedResult = result.map((item: TenderApi) => ({
         ...item,
         estimatedValue: parseFloat(item.estimatedValue) || 0 // Convert to number, default to 0 if invalid
-      }));
+      })) as Tender[];
       setData(processedResult);
     } catch (e) {
       if (e instanceof Error) {

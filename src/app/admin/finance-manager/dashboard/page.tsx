@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-
+import {  ArrowLeft } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 import { 
@@ -203,6 +203,15 @@ export default function FinanceManagerDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+        <div className="mb-4">
+        <Link
+          href="/admin"
+          className="inline-flex items-center text-gray-600 hover:text-gray-900"
+        >
+          <ArrowLeft className="w-5 h-5 mr-2" />
+          Back to Dashboard
+        </Link>
+      </div>
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

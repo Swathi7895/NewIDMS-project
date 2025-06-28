@@ -16,7 +16,7 @@ function formatDate(dateString: string) {
   // Try to parse as YYYYMMDD or fallback to Date
   if (/^\d{8}$/.test(dateString)) {
     // e.g., 2025614 (should be 20250614), so pad month/day if needed
-    let str = dateString.padStart(8, '0');
+    const str = dateString.padStart(8, '0');
     return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
   }
   const d = new Date(dateString);

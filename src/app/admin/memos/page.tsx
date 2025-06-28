@@ -18,7 +18,7 @@ import axios from 'axios';
 interface Employee {
   id: string;
   employeeId: string;
-  name: string;
+  employeeName: string;
   department: string;
   email: string;
 }
@@ -102,15 +102,15 @@ export default function AdminMemosPage() {
         setLoading(true);
         setError(null);
         const response = await axios.get(`${API_BASE_URL}/employees`);
-        const fetchedEmployees = response.data.map((emp: any) => ({
+        const fetchedEmployees = response.data.map((emp: Employee) => ({
           id: emp.id,
           employeeId: emp.employeeId,
-          name: emp.employeeName,
+          employeeName:emp.employeeName,
           department: emp.department,
           email: emp.email
         }));
         setEmployees(fetchedEmployees);
-      } catch (err) {
+      } catch (err: unknown) {
         console.error('Failed to fetch employees:', err);
         setError('Failed to load employees. Please check your connection and try again.');
         setEmployees([]);
@@ -131,7 +131,7 @@ export default function AdminMemosPage() {
       try {
         const response = await axios.get<SentMemo[]>(`${API_BASE_URL}/memos`);
         setSentMemos(response.data);
-      } catch (err) {
+      } catch (err: unknown) {
         console.error('Failed to fetch sent memos:', err);
         setError('Failed to load sent memos. Please try again.');
         setSentMemos([]);
@@ -143,11 +143,11 @@ export default function AdminMemosPage() {
     fetchSentMemos();
   }, [activeTab]);
 
-  const departments = [...new Set(employees.map(emp => emp.department))];
+  const departments = [...new Set(employees.map(emp => emp.department || '').filter(dept => dept !== ''))];
 
   const filteredEmployees = employees.filter(emp => {
-    const matchesSearch = emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         emp.department.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = (emp.employeeName?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+                         (emp.department?.toLowerCase() || '').includes(searchTerm.toLowerCase());
     const matchesDepartment = selectedDepartment === 'all' || emp.department === selectedDepartment;
     return matchesSearch && matchesDepartment;
   });
@@ -160,13 +160,7 @@ export default function AdminMemosPage() {
     );
   };
 
-  const handleDepartmentSelect = (department: string) => {
-    setSelectedDepartments(prev => 
-      prev.includes(department)
-        ? prev.filter(dept => dept !== department)
-        : [...prev, department]
-    );
-  };
+  
 
   const handleSendMemo = async () => {
     if (!memoTitle || !memoContent || (selectedEmployees.length === 0 && selectedDepartments.length === 0)) {
@@ -232,9 +226,12 @@ export default function AdminMemosPage() {
       // Switch to the sent tab to see the updated list
       setActiveTab('sent');
 
-    } catch (err: any) {
-      console.error('Failed to send memo:', err);
-      setError(err.response?.data?.message || 'Failed to send memo. Please try again.');
+    } catch (err: unknown) {
+      if (typeof err === 'object' && err !== null && 'response' in err) {
+        setError((err as { response?: { data?: { message?: string } } }).response?.data?.message || 'Failed to send memo. Please try again.');
+      } else {
+        setError('Failed to send memo. Please try again.');
+      }
     } finally {
       setSending(false);
     }
@@ -266,7 +263,7 @@ export default function AdminMemosPage() {
     try {
       await axios.delete(`${API_BASE_URL}/memos/${memoId}`);
       setSentMemos(prevMemos => prevMemos.filter(memo => memo.id !== memoId));
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Failed to delete memo:', err);
       setError('Failed to delete memo. Please try again.');
     }
@@ -319,7 +316,7 @@ export default function AdminMemosPage() {
   };
 
   const getTypeIcon = (type: string) => {
-    switch (type.toLowerCase()) {
+    switch ((type || '').toLowerCase()) {
       case 'announcement':
         return <AlertCircle className="w-4 h-4" />;
       case 'warning':
@@ -406,30 +403,6 @@ export default function AdminMemosPage() {
                     ))}
                   </select>
 
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-medium text-gray-700">Select Departments</h4>
-                    <div className="space-y-1">
-                      {departments.map(dept => (
-                        <div
-                          key={dept}
-                          className={`flex items-center space-x-3 p-2 rounded-lg cursor-pointer transition-colors ${
-                            selectedDepartments.includes(dept)
-                              ? 'bg-blue-50 border border-blue-200'
-                              : 'hover:bg-gray-50'
-                          }`}
-                          onClick={() => handleDepartmentSelect(dept)}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={selectedDepartments.includes(dept)}
-                            onChange={() => {}}
-                            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                          />
-                          <span className="text-sm font-medium text-gray-900">{dept}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
 
                   <div className="space-y-2">
                     <h4 className="text-sm font-medium text-gray-700">Select Employees</h4>
@@ -451,7 +424,7 @@ export default function AdminMemosPage() {
                             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                           />
                           <div>
-                            <p className="text-sm font-medium text-gray-900">{emp.name}</p>
+                            <p className="text-sm font-medium text-gray-900">{emp.employeeName}</p>
                             <p className="text-xs text-gray-500">{emp.department} • {emp.employeeId}</p>
                           </div>
                         </div>

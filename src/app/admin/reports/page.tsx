@@ -86,7 +86,7 @@ export default function ReportsPage() {
   };
 
   const departments = [
-    'Engineering',
+    'IT',
     'Sales',
     'Marketing',
     'HR',
@@ -107,7 +107,7 @@ export default function ReportsPage() {
       setError(null);
       try {
         const response = await axios.get('http://localhost:8080/api/reports');
-        const mappedReports: Report[] = response.data.map((r: any) => ({
+        const mappedReports: Report[] = response.data.map((r: Report) => ({
           id: r.id,
           type: r.type,
           subtype: r.subtype,

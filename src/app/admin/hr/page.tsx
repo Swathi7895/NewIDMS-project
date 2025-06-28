@@ -13,6 +13,7 @@ import {
   Briefcase, 
  
 } from 'lucide-react';
+import { Employee } from './types';
 
 interface StatCardProps {
   icon: LucideIcon;
@@ -21,6 +22,13 @@ interface StatCardProps {
   trend?: string;
   color?: string;
   bgColor?: string;
+}
+
+interface Activity {
+  icon: LucideIcon;
+  title: string;
+  time: string;
+  status: 'completed' | 'pending' | 'rejected';
 }
 
 interface RecentActivityProps {
@@ -40,7 +48,7 @@ export default function HRDashboard() {
   const [errorStats, setErrorStats] = useState<string | null>(null);
 
   // State for recent activities
-  const [activities, setActivities] = useState<any[]>([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
   const [loadingActivities, setLoadingActivities] = useState(true);
   const [errorActivities, setErrorActivities] = useState<string | null>(null);
 
@@ -49,19 +57,17 @@ export default function HRDashboard() {
     setErrorStats(null);
     fetch('http://localhost:8080/api/employees')
       .then(res => res.json())
-      .then(data => {
+      .then((data: Employee[]) => {
         setTotalWorkforce(data.length);
-        // Unique departments
-        setDepartments(Array.from(new Set(data.map((e: any) => e.department))));
+        setDepartments(Array.from(new Set(data.map((e) => (e as { department?: string }).department ?? ''))));
         // New hires in last 30 days
         const now = new Date();
-        const hires = data.filter((e: any) => {
-          if (!e.joiningDate) return false;
-          const joinDate = new Date(e.joiningDate);
+        const hires = data.filter((e) => {
+          if (!e.joinDate) return false;
+          const joinDate = new Date(e.joinDate);
           return (now.getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24) <= 30;
         });
         setNewHires(hires.length);
-        // Placeholder for open positions (if API available, replace this logic)
         setOpenPositions(null);
       })
       .catch(() => setErrorStats('Failed to fetch employee data'))
@@ -73,7 +79,7 @@ export default function HRDashboard() {
     setErrorActivities(null);
     fetch('http://localhost:8080/api/activities')
       .then(res => res.json())
-      .then(data => setActivities(data.slice(0, 5)))
+      .then((data: Activity[]) => setActivities(data.slice(0, 5)))
       .catch(() => setErrorActivities('Failed to fetch activities'))
       .finally(() => setLoadingActivities(false));
   }, []);
@@ -233,11 +239,11 @@ export default function HRDashboard() {
                 <div className="space-y-2">
                   {activities.map((activity, idx) => (
                     <RecentActivity
-                      key={activity.id || idx}
-                      icon={Award} // You can map activity type to icon if available
-                      title={activity.title || activity.activityName || 'Activity'}
-                      time={activity.date ? new Date(activity.date).toLocaleString() : ''}
-                      status={activity.status || 'completed'}
+                      key={idx}
+                      icon={activity.icon}
+                      title={activity.title}
+                      time={activity.time}
+                      status={activity.status}
                     />
                   ))}
                 </div>

@@ -58,7 +58,7 @@ export default function LeavesPage() {
     axios.get(`${API_BASE}/employee/${employeeId}`)
       .then(res => {
         // Map API data to correct interface
-        setLeaves(res.data.map((item: any) => ({
+        setLeaves(res.data.map((item: Leave) => ({
           id: item.id,
           employeeId: item.employeeId,
           employeeName: item.employeeName || '',
@@ -98,14 +98,14 @@ export default function LeavesPage() {
       return;
     }
  
-    const leavePayload: any = {
-      employeeId: employeeId, // Use dynamic employeeId instead of static
+    const leavePayload: Omit<Leave, 'id' | 'numberOfDays' | 'hrComments' | 'requestDate'> & { status: string } = {
+      employeeId: employeeId,
       employeeName: newLeave.employeeName || '',
-      leaveType: newLeave.leaveType,
-      startDate: newLeave.startDate,
-      endDate: newLeave.endDate,
+      leaveType: newLeave.leaveType || '',
+      startDate: newLeave.startDate || '',
+      endDate: newLeave.endDate || '',
       status: 'pending',
-      reason: newLeave.reason,
+      reason: newLeave.reason || '',
     };
  
     axios.post<Leave>(`${API_BASE}/employee`, leavePayload)

@@ -145,6 +145,9 @@ const modules: Module[] = [
   }
 ];
 
+// Define a type for the expected data shape
+type MonthlyDataItem = { [key: string]: string | number | undefined };
+
 export default function DataManagerDashboard() {
   const [moduleCounts, setModuleCounts] = useState<{ [key: string]: number }>({});
   const [loading, setLoading] = useState(true);
@@ -246,7 +249,7 @@ export default function DataManagerDashboard() {
           'Partially Paid': 0
         };
 
-        salesForPaymentStatus.forEach((sale: any) => {
+        salesForPaymentStatus.forEach((sale: { paymentStatus: string }) => {
           if (sale.paymentStatus in paymentStatusCounts) {
             paymentStatusCounts[sale.paymentStatus as keyof typeof paymentStatusCounts]++;
           }
@@ -267,8 +270,8 @@ export default function DataManagerDashboard() {
         });
 
         setModuleCounts(counts);
-      } catch (e: any) {
-        setError(`Failed to fetch data: ${e.message}`);
+      } catch (e: unknown) {
+        setError(`Failed to fetch data: ${e instanceof Error ? e.message : 'Unknown error'}`);
       } finally {
         setLoading(false);
       }
@@ -278,13 +281,13 @@ export default function DataManagerDashboard() {
   }, []);
 
   // Helper function to process monthly data
-  const processMonthlyData = (data: any[], dateField: string, amountField: string) => {
+  const processMonthlyData = (data: MonthlyDataItem[], dateField: string, amountField: string) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const monthlyTotals = new Array(12).fill(0);
     const currentYear = new Date().getFullYear();
 
-    data.forEach((item: any) => {
-      const date = new Date(item[dateField]);
+    data.forEach((item: MonthlyDataItem) => {
+      const date = new Date(item[dateField] as string);
       if (date.getFullYear() === currentYear) {
         const month = date.getMonth();
         monthlyTotals[month] += Number(item[amountField]) || 0;

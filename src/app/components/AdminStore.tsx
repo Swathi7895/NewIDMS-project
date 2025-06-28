@@ -88,7 +88,7 @@ export default function ItemManagement({
                         : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
                     }`}
                   >
-                    {item.condition.toUpperCase()}
+                    {(item.condition || 'unknown').toUpperCase()}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">

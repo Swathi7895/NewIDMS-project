@@ -24,7 +24,7 @@ const travelAPI = {
 function formatDate(dateString: string) {
   if (!dateString) return '';
   if (/^\d{8}$/.test(dateString)) {
-    let str = dateString.padStart(8, '0');
+    const str = dateString.padStart(8, '0');
     return `${str.slice(0, 4)}-${str.slice(4, 6)}-${str.slice(6, 8)}`;
   }
   const d = new Date(dateString);

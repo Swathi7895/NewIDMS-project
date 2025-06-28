@@ -43,7 +43,6 @@ interface ActionButtonProps {
  
 interface LeaveTableProps {
   leaves: Leave[] | Holiday[];
-  showActions?: boolean;
   isHoliday?: boolean;
 }
  
@@ -229,7 +228,7 @@ const LeaveManagementSystem = () => {
     );
   };
  
-  const LeaveTable = ({ leaves, showActions = false, isHoliday = false }: LeaveTableProps) => (
+  const LeaveTable = ({ leaves, isHoliday = false }: LeaveTableProps) => (
     <div className="overflow-x-auto">
       <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
         <thead className="bg-gradient-to-r from-gray-700 to-gray-800 text-white">
@@ -357,7 +356,7 @@ const LeaveManagementSystem = () => {
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800">Non-Approved Leaves</h2>
               </div>
-              <LeaveTable leaves={[...leaveData.pending, ...leaveData.rejected]} showActions={true} />
+              <LeaveTable leaves={[...leaveData.pending, ...leaveData.rejected]} />
             </div>
  
             {/* Holiday Leaves Section */}
