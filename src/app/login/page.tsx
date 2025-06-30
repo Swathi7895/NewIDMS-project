@@ -21,7 +21,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Partial<FormData>>({});
   const [loginAsEmployee, setLoginAsEmployee] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<string>('');
+  const [, setSelectedRole] = useState<string>('');
 
   // Check for selected role on component mount
   useEffect(() => {

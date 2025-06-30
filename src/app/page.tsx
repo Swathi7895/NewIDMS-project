@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Download, FileText, Presentation, Users, Building, Database, Store, UserCheck, DollarSign,
   ArrowRight, Menu, X, Phone, Mail, MapPin, Award, Target, TrendingUp, Shield, CheckCircle, Star,
-  Play, Globe, Zap
+   Globe, Zap
 } from 'lucide-react';
 import { useRouter } from "next/navigation";
 export default function HomePage() {
@@ -38,12 +38,7 @@ export default function HomePage() {
     setIsMenuOpen(false);
   };
 
-  const stats = [
-    { number: '10K+', label: 'Active Users', icon: Users },
-    { number: '99.9%', label: 'Uptime', icon: Shield },
-    { number: '24/7', label: 'Support', icon: CheckCircle },
-    { number: '150+', label: 'Integrations', icon: Globe }
-  ];
+ 
 
   const features = [
     {
@@ -191,7 +186,7 @@ export default function HomePage() {
             Why Choose <span className="text-gradient">WorkManagement</span>
           </h2>
           <p className="text-xl mb-12 max-w-3xl mx-auto text-gray-700">
-            We're your strategic partner in digital transformation, building the future of work.
+            We&apos;re your strategic partner in digital transformation, building the future of work.
           </p>
           {/* Features */}
           <div className="grid md:grid-cols-3 gap-8 mb-20">
@@ -374,7 +369,7 @@ export default function HomePage() {
       <section id="contact" className="py-20 bg-gradient-to-br from-pink-100 via-purple-100 to-yellow-100">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center text-gray-900">
-            Let's <span className="text-gradient">Connect</span>
+            Let&apos;s <span className="text-gradient">Connect</span>
           </h2>
           <p className="text-xl mb-12 text-center max-w-3xl mx-auto text-gray-700">
             Ready to level up? Reach out to us.
