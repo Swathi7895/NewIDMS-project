@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  ShoppingCartIcon,
+ 
   ArchiveBoxIcon,
   BookOpenIcon,
   DocumentArrowUpIcon,
@@ -259,26 +259,7 @@ export default function StorePage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <ShoppingCartIcon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                  Inventory Control Panel
-                </h1>
-                <p className="text-gray-600 dark:text-gray-400 mt-1">
-                  Inventory & Asset Management System
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+     
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
        
 

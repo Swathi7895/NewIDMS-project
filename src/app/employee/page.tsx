@@ -29,6 +29,7 @@ interface QuickLink {
  
 interface Employee {
   employeeName: string;
+  employeeId: string;
   position: string;
   department: string;
   email: string;
@@ -50,6 +51,7 @@ export default function EmployeeDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [editedProfile, setEditedProfile] = useState({
     employeeName: '',
+    employeeId:'',
     position: '',
     department: '',
     email: '',
@@ -131,6 +133,7 @@ export default function EmployeeDashboard() {
       setEmployee(data);
       setEditedProfile({
         employeeName: data.employeeName || '',
+        employeeId:data.employeeId || '',
         position: data.position || '',
         department: data.department || '',
         email: data.email || '',
@@ -171,6 +174,7 @@ export default function EmployeeDashboard() {
     if (!employee) return;
     setEditedProfile({
       employeeName: employee.employeeName,
+      employeeId:employee.employeeId,
       position: employee.position,
       department: employee.department,
       email: employee.email,
@@ -376,6 +380,8 @@ export default function EmployeeDashboard() {
                         </div>
                         <div className="flex items-center space-x-2">
                           <Briefcase className="w-4 h-4 text-gray-400" />
+                          <span className="text-gray-600">{employee.employeeId}</span>
+
                         </div>
                         <div className="flex items-center space-x-2">
                           <span className="font-semibold">Blood Group:</span>

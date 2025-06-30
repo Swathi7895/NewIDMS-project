@@ -23,6 +23,7 @@ export default function RegisterPage() {
     roles: [] // Remove default role
   });
   const [loading, setLoading] = useState(false);
+  const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
 
   const availableRoles = [
     'ADMIN',
@@ -42,16 +43,60 @@ export default function RegisterPage() {
     }));
   };
 
+  const validatePassword = (password: string) => {
+    const errors: string[] = [];
+    
+    // Check minimum length
+    if (password.length < 8) {
+      errors.push('At least 8 characters long');
+    }
+    
+    // Check for uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      errors.push('One uppercase letter');
+    }
+    
+    // Check for lowercase letter
+    if (!/[a-z]/.test(password)) {
+      errors.push('One lowercase letter');
+    }
+    
+    // Check for number
+    if (!/\d/.test(password)) {
+      errors.push('One number');
+    }
+    
+    // Check for special character
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.push('One special character (!@#$%^&*(),.?":{}|<>)');
+    }
+
+    return errors;
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setFormData({ ...formData, password: newPassword });
+    setPasswordErrors(validatePassword(newPassword));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    
+    // Validate password before submission
+    const passwordValidationErrors = validatePassword(formData.password);
+    if (passwordValidationErrors.length > 0) {
+      toast.error('Please fix all password requirements');
+      return;
+    }
 
     // Validate that at least one role is selected
     if (formData.roles.length === 0) {
       toast.error('Please select at least one role');
-      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     try {
       const response = await fetch('http://localhost:8080/api/auth/register', {
@@ -168,14 +213,43 @@ export default function RegisterPage() {
               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
 
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            />
+            <div className="space-y-1">
+              <input
+                type="password"
+                placeholder="Password"
+                required
+                value={formData.password}
+                onChange={handlePasswordChange}
+                className={`appearance-none block w-full px-3 py-2 border ${
+                  passwordErrors.length > 0 ? 'border-red-300' : 'border-gray-300'
+                } rounded-xl shadow-sm focus:ring-blue-500 focus:border-blue-500`}
+              />
+              {formData.password.length > 0 && (
+                <div className="mt-2 p-3 bg-gray-50 rounded-lg">
+                  <p className="text-sm font-medium text-gray-700 mb-2">Password must have:</p>
+                  <ul className="space-y-1">
+                    {[
+                      'At least 8 characters long',
+                      'One uppercase letter',
+                      'One lowercase letter',
+                      'One number',
+                      'One special character (!@#$%^&*(),.?":{}|<>)'
+                    ].map((requirement) => (
+                      <li 
+                        key={requirement} 
+                        className={`text-sm flex items-center ${
+                          passwordErrors.includes(requirement) 
+                            ? 'text-red-600' 
+                            : 'text-green-600'
+                        }`}
+                      >
+                        {passwordErrors.includes(requirement) ? '✗' : '✓'} {requirement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
 
             <fieldset>
               <legend className="text-sm font-medium text-gray-700 mb-2">Select Roles</legend>

@@ -7,6 +7,8 @@ import {
    Globe, Zap
 } from 'lucide-react';
 import { useRouter } from "next/navigation";
+import { motion } from 'framer-motion';
+
 export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -93,12 +95,7 @@ export default function HomePage() {
                 )}
               </button>
             ))}
-            <button
-              onClick={() => scrollToSection('login')}
-              className="ml-4 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-semibold hover:scale-105 transform transition-shadow"
-            >
-              Get Started
-            </button>
+           
           </div>
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -137,7 +134,7 @@ export default function HomePage() {
       {/* Hero / Main Banner */}
       <section
         id="home"
-        className="relative flex items-center min-h-screen bg-gradient-to-br from-pink-100 via-purple-200 to-blue-200 overflow-hidden pt-20"
+        className="relative flex items-center min-h-[70vh] bg-gradient-to-br from-pink-100 via-purple-200 to-blue-200 overflow-hidden pt-8 pb-8"
       >
         {/* Animated Backgrounds */}
         <div className="absolute inset-0 -z-10">
@@ -148,17 +145,25 @@ export default function HomePage() {
         {/* Content */}
         <div className="relative max-w-7xl mx-auto px-6 text-center z-20">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-400 via-purple-500 to-blue-600 text-white rounded-full mb-4 font-semibold text-sm shadow-lg">
-            <Star className="w-4 h-4 mr-2" /> Trusted by 10,000+ Organizations
+          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-400 via-purple-500 to-blue-600 text-white rounded-full mb-2 font-semibold text-sm shadow-lg">
+            <Star className="w-4 h-4 mr-2" /> Trusted by  Organizations
           </div>
           {/* Headline */}
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight text-gray-900">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-3 leading-tight text-gray-900">
             Transform Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600">Workplace</span>
           </h1>
           {/* Subtext */}
-          <p className="max-w-3xl mx-auto mb-8 text-lg md:text-xl text-gray-700">
+          <p className="max-w-2xl mx-auto mb-4 text-lg md:text-xl text-gray-700">
             All-in-one platform that empowers teams to collaborate, innovate, and succeed with automation & insights.
           </p>
+          <div className="flex justify-center">
+            <button
+              onClick={() => scrollToSection('login')}
+              className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-semibold shadow-xl hover:scale-105 transition text-lg"
+            >
+              Get Started
+            </button>
+          </div>
           {/* Call-to-Action Buttons */}
           {/* <div className="flex flex-col md:flex-row gap-4 justify-center mb-16">
             <button
@@ -191,16 +196,20 @@ export default function HomePage() {
           {/* Features */}
           <div className="grid md:grid-cols-3 gap-8 mb-20">
             {features.map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white p-8 rounded-xl shadow hover:shadow-xl transition-transform hover:scale-105 border-gradient"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                viewport={{ once: true }}
+                className="bg-white p-8 rounded-xl shadow hover:shadow-2xl transition-transform hover:scale-105 border-gradient"
               >
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-pink-300 to-purple-400 rounded-full flex items-center justify-center text-white shadow-lg">
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
           {/* Mission, Vision, Values */}
@@ -222,7 +231,7 @@ export default function HomePage() {
                 desc: 'Innovation, transparency, customer focus, sustainable growth.',
               },
             ].map((item, index) => (
-              <div
+              <motion.div
                 key={index}
                 className="bg-gradient-to-br from-pink-100 to-purple-100 p-6 rounded-xl shadow hover:shadow-2xl transition-transform hover:scale-105"
               >
@@ -231,11 +240,18 @@ export default function HomePage() {
                 </div>
                 <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
                 <p className="text-gray-600 text-sm">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* SVG Divider Example (between About and Services) */}
+      <div className="overflow-hidden -mb-1">
+        <svg viewBox="0 0 1440 100" className="w-full h-12" preserveAspectRatio="none">
+          <path fill="#f3f4f6" d="M0,0 C480,100 960,0 1440,100 L1440,0 L0,0 Z"></path>
+        </svg>
+      </div>
 
       {/* Services */}
       <section id="services" className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
@@ -256,7 +272,7 @@ export default function HomePage() {
               { icon: DollarSign, title: 'Finance Control', desc: 'Budgeting & expense automation', color: 'green' },
               { icon: Shield, title: 'Security & Compliance', desc: 'Enterprise-grade security', color: 'red' },
             ].map((service, index) => (
-              <div
+              <motion.div
                 key={index}
                 className="bg-white p-6 rounded-xl shadow hover:shadow-2xl transition-transform hover:scale-105 border-gradient"
               >
@@ -270,7 +286,7 @@ export default function HomePage() {
                 <div className="text-blue-600 font-semibold flex items-center justify-center hover:text-blue-800 transition cursor-pointer">
                   Learn More <ArrowRight className="w-4 h-4 ml-2" />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -288,7 +304,7 @@ export default function HomePage() {
           {/* Download Cards */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* PDF */}
-            <div className="bg-white p-8 rounded-xl border border-gray-300 hover:shadow-2xl transition transform hover:scale-105">
+            <motion.div className="bg-white p-8 rounded-xl border border-gray-300 hover:shadow-2xl transition transform hover:scale-105">
               <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-pink-300 to-purple-400 rounded-full flex items-center justify-center shadow-lg">
                 <FileText className="w-10 h-10 text-gradient" />
               </div>
@@ -302,9 +318,9 @@ export default function HomePage() {
               >
                 <Download className="w-5 h-5 mr-2 inline-block" /> Download PDF
               </button>
-            </div>
+            </motion.div>
             {/* PPT */}
-            <div className="bg-white p-8 rounded-xl border border-gray-300 hover:shadow-2xl transition transform hover:scale-105">
+            <motion.div className="bg-white p-8 rounded-xl border border-gray-300 hover:shadow-2xl transition transform hover:scale-105">
               <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-300 to-pink-400 rounded-full flex items-center justify-center shadow-lg">
                 <Presentation className="w-10 h-10 text-gradient" />
               </div>
@@ -318,7 +334,7 @@ export default function HomePage() {
               >
                 <Download className="w-5 h-5 mr-2 inline-block" /> Download PPT
               </button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -342,7 +358,7 @@ export default function HomePage() {
               { icon: UserCheck, role: 'HR Manager', desc: 'HR & talent', color: 'pink' },
               { icon: DollarSign, role: 'Finance', desc: 'Financial oversight', color: 'green' },
             ].map((role, index) => (
-              <div
+              <motion.div
                 key={index}
                 className="bg-white p-6 rounded-xl shadow hover:shadow-2xl transition-transform hover:scale-105 border-gradient"
               >
@@ -359,7 +375,7 @@ export default function HomePage() {
                 >
                   Access {role.role}
                 </button>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -453,15 +469,15 @@ export default function HomePage() {
                 Powering organizations with innovative work management solutions for productivity & growth.
               </p>
               <div className="flex space-x-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center hover:scale-105 transition cursor-pointer">
+                <a href="https://yourwebsite.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center hover:scale-105 transition cursor-pointer">
                   <Globe className="w-5 h-5" />
-                </div>
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center hover:scale-105 transition cursor-pointer">
+                </a>
+                <a href="mailto:support@tirangaaerospace.com" className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center hover:scale-105 transition cursor-pointer">
                   <Mail className="w-5 h-5" />
-                </div>
-                <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center hover:scale-105 transition cursor-pointer">
+                </a>
+                <a href="tel:+918048905416" className="w-10 h-10 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center hover:scale-105 transition cursor-pointer">
                   <Phone className="w-5 h-5" />
-                </div>
+                </a>
               </div>
             </div>
             {/* Solutions */}
