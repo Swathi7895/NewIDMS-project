@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState,  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lock, User, Eye, EyeOff, Shield } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -21,6 +21,21 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Partial<FormData>>({});
   const [loginAsEmployee, setLoginAsEmployee] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<string>('');
+
+  // Check for selected role on component mount
+  useEffect(() => {
+    const role = sessionStorage.getItem('selectedRole');
+    if (role) {
+      setSelectedRole(role);
+      // Auto-set employee login for employee role
+      if (role === 'employee') {
+        setLoginAsEmployee(true);
+      }
+      // Clear the selected role from sessionStorage
+      sessionStorage.removeItem('selectedRole');
+    }
+  }, []);
 
   const redirectBasedOnRole = (roles: string[]) => {
     if (roles.includes('ADMIN')) {
