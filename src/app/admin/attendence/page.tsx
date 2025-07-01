@@ -66,15 +66,13 @@ export default function AdminAttendanceDashboard() {
         const response = await axios.get('https://idmsbackend-production.up.railway.app/api/attendance');
         // Map API response to AttendanceRecord[] with late logic
         const mappedData: AttendanceRecord[] = response.data.map((record: BackendAttendanceRecord) => {
-          let status = record.status;
- 
           // Convert backend date array to 'YYYY-MM-DD' string
           const dateArray = record.date;
           const year = dateArray[0];
           const month = String(dateArray[1]).padStart(2, '0');
           const day = String(dateArray[2]).padStart(2, '0');
           const dateStr = `${year}-${month}-${day}`;
- 
+
           // Convert checkInTime/checkOutTime arrays to string if needed
           const formatTime = (time: string | number[] | null) => {
             if (Array.isArray(time)) {
@@ -82,19 +80,7 @@ export default function AdminAttendanceDashboard() {
             }
             return time ?? null;
           };
- 
-          // Only check for late if present or late
-          const checkIn = formatTime(record.checkInTime);
-          if (checkIn && typeof checkIn === 'string') {
-            // Compare checkInTime to 09:15:00
-            if (checkIn > '09:15:00') {
-              status = 'late';
-            } else if (checkIn > '09:00:00') {
-              status = 'present'; // Between 09:00:01 and 09:15:00
-            } else {
-              status = 'present';
-            }
-          }
+
           return {
             employeeId: record.employeeId,
             employeeName: record.employeeName,
@@ -102,7 +88,7 @@ export default function AdminAttendanceDashboard() {
             date: dateStr,
             signIn: formatTime(record.checkInTime),
             signOut: formatTime(record.checkOutTime),
-            status,
+            status: record.status,
             workHours: record.workHours,
           };
         });
