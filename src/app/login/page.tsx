@@ -82,7 +82,11 @@ export default function LoginPage() {
         return;
       }
 
-      const data: any = await response.json();
+      const data = await response.json() as (
+        | { token: string; roles: string[]; message?: string }
+        | { employeeId: string; employeeProfile?: object; userEmail?: string; roles?: string[]; message?: string }
+        | { message?: string }
+      );
 
       if (response.ok && data) {
         if (loginAsEmployee) {
@@ -113,8 +117,17 @@ export default function LoginPage() {
         toast.error(data?.message || 'Login failed.');
         sessionStorage.clear();
       }
-    } catch (e: any) {
-      toast.error(e?.message?.includes('fetch') ? 'Network error' : 'Unexpected error');
+    } catch (e: unknown) {
+      let errorMessage = 'Unexpected error';
+      if (
+        e &&
+        typeof e === 'object' &&
+        'message' in e &&
+        typeof (e as { message?: string }).message === 'string'
+      ) {
+        errorMessage = (e as { message: string }).message.includes('fetch') ? 'Network error' : (e as { message: string }).message;
+      }
+      toast.error(errorMessage);
       sessionStorage.clear();
     } finally {
       setLoading(false);

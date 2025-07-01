@@ -86,7 +86,7 @@ export default function RegisterPage() {
       } else {
         toast.error(data.message || 'Registration failed. Please try again.');
       }
-    } catch (err) {
+    } catch {
       toast.error('Network or server error. Please try again.');
     } finally {
       setLoading(false);
