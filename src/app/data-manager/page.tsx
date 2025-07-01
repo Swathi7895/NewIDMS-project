@@ -209,7 +209,7 @@ export default function DataManagerDashboard() {
         );
 
         // Fetch sales data for charts
-        const salesResponse = await fetch('https://idmsbackend-production.up.railway.app/api/sales');
+        const salesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sales`);
         if (salesResponse.ok) {
           const sales = await salesResponse.json();
           const monthlySales = processMonthlyData(sales, 'date', 'amount');
@@ -225,7 +225,7 @@ export default function DataManagerDashboard() {
         }
 
         // Fetch purchase data for charts
-        const purchasesResponse = await fetch('https://idmsbackend-production.up.railway.app/api/purchases');
+        const purchasesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/purchases`);
         if (purchasesResponse.ok) {
           const purchases = await purchasesResponse.json();
           const monthlyPurchases = processMonthlyData(purchases, 'date', 'amount');
@@ -234,8 +234,8 @@ export default function DataManagerDashboard() {
             datasets: [{
               label: 'Purchases',
               data: monthlyPurchases.data,
-              borderColor: '#ff6384',
-              backgroundColor: 'rgba(255, 99, 132, 0.3)',
+              borderColor: '#ef4444',
+              backgroundColor: 'rgba(239, 68, 68, 0.3)',
             }]
           });
         }

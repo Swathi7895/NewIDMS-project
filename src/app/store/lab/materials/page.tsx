@@ -14,7 +14,7 @@ interface LabMaterial {
   lastUpdated: Date;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/materials';
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/lab/materials`;
 
 export default function LabMaterialsPage() {
   const [materials, setMaterials] = useState<LabMaterial[]>([]);

@@ -30,7 +30,7 @@ interface ApiFurnitureItem {
 }
 
 // API service functions
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/assets/furniture';
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/assets/furniture`;
 
 const furnitureAPI = {
   // GET - Fetch all furniture items

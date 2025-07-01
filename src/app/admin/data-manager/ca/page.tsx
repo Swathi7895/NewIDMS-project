@@ -63,7 +63,7 @@ const viewFields: ViewField[] = [
   { name: 'status', label: 'Status', type: 'status' }
 ];
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/cadocuments';
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/cadocuments`;
 
 export default function CAPage() {
   const [searchTerm, setSearchTerm] = useState('');

@@ -193,7 +193,7 @@ export default function StorePage() {
           const item = section.items[itemIndex];
           
           try {
-            const response = await fetch(item.apiUrl, {
+            const response = await fetch(item.apiUrl.replace('https://idmsbackend-production.up.railway.app', process.env.NEXT_PUBLIC_API_URL || 'https://idmsbackend-production.up.railway.app'), {
               method: 'GET',
               headers,
             });
