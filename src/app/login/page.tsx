@@ -94,7 +94,7 @@ export default function LoginPage() {
     try {
       const apiUrl = loginAsEmployee
         ? 'https://idmsbackend-production.up.railway.app/api/employees/login'
-        : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/auth/login`;
+        : `${process.env.NEXT_PUBLIC_API_URL || 'https://idmsbackend-production.up.railway.app'}/api/auth/login`;
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
