@@ -54,7 +54,7 @@ export default function RegisterPage() {
 
     const passwordValidationErrors = validatePassword(formData.password);
     if (passwordValidationErrors.length > 0) {
-      toast.error('Please fix all password requirements');
+      toast.error('Please fix password requirements');
       return;
     }
 
