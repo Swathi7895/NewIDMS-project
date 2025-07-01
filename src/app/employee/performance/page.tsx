@@ -60,7 +60,7 @@ export default function PerformancePage() {
     
     setLoading(true);
     setError(null); // Clear previous errors
-    fetch(`http://localhost:8080/api/performance-reviews/employee/byId/${employeeId}`)
+    fetch(`https://idmsbackend-production.up.railway.app/api/performance-reviews/employee/byId/${employeeId}`)
       .then(res => res.json())
       .then((data: APIReview[]) => {
         setReviews(Array.isArray(data) ? data : []);

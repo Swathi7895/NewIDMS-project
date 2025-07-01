@@ -86,7 +86,7 @@ export default function AssetsPage() {
       try {
         setLoading(true);
         setError(null); // Clear previous errors
-        const response = await fetch(`http://localhost:8080/api/assets/employee/${employeeId}`);
+        const response = await fetch(`https://idmsbackend-production.up.railway.app/api/assets/employee/${employeeId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch assets');
         }

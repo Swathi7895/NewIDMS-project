@@ -35,7 +35,7 @@ export default function SalesPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Consider moving this to an environment variable or a config file for better management
-  const API_URL = 'http://localhost:8080/api/sales';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/sales';
 
   // --- Data Fetching (GET) ---
   const fetchSales = async () => {

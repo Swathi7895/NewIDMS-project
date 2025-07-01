@@ -32,7 +32,7 @@ interface ApiRequestBody {
   lastUpdated: string;
 }
 
-const API_BASE_URL = 'http://localhost:8080/store/stationary/fixed';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/stationary/fixed';
 
 export default function FixedStationaryPage() {
   const [items, setItems] = useState<FixedItem[]>([]);

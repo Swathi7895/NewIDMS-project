@@ -16,7 +16,7 @@ export default function ElectricBillsPage() {
 
   // ✅ Fetch electric bills from backend
   useEffect(() => {
-    fetch('http://localhost:8080/api/electric-bills')
+    fetch('https://idmsbackend-production.up.railway.app/api/electric-bills')
       .then((res) => res.json())
       .then(setExpenses)
       .catch((err) => console.error('Error fetching bills:', err));

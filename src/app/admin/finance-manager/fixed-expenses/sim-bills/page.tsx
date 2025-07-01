@@ -14,7 +14,7 @@ interface SimBillExpense {
 export default function SimBillsPage() {
   const [expenses, setExpenses] = useState<SimBillExpense[]>([]);
 
-  const API_URL = 'http://localhost:8080/api/sim-bills';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/sim-bills';
 
   useEffect(() => {
     fetchExpenses();

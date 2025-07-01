@@ -13,7 +13,7 @@ interface WaterBillExpense {
 export default function WaterBillsPage() {
   const [expenses, setExpenses] = useState<WaterBillExpense[]>([]);
 
-  const API_URL = 'http://localhost:8080/api/water-bills';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/water-bills';
 
   useEffect(() => {
     fetchExpenses();

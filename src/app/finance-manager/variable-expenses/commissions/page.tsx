@@ -18,7 +18,7 @@ export default function CommissionsPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/commissions')
+    fetch('https://idmsbackend-production.up.railway.app/api/commissions')
       .then(res => res.json())
       .then(data => setExpenses(data));
   }, []);
@@ -31,7 +31,7 @@ export default function CommissionsPage() {
   const handleAddExpense = async () => {
     if (!newExpense.date || !newExpense.amount || !newExpense.recipient || !newExpense.description) return;
     const [year, month, day] = newExpense.date.split('-').map(Number);
-    const res = await fetch('http://localhost:8080/api/commissions', {
+    const res = await fetch('https://idmsbackend-production.up.railway.app/api/commissions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -46,7 +46,7 @@ export default function CommissionsPage() {
   };
 
   const handleDeleteExpense = async (id: number) => {
-    await fetch(`http://localhost:8080/api/commissions/${id}`, { method: 'DELETE' });
+    await fetch(`https://idmsbackend-production.up.railway.app/api/commissions/${id}`, { method: 'DELETE' });
     setExpenses(expenses.filter(e => e.id !== id));
   };
 
@@ -64,7 +64,7 @@ export default function CommissionsPage() {
       date: [year, month, day],
       amount: parseFloat(newExpense.amount),
     };
-    const res = await fetch(`http://localhost:8080/api/commissions/${editingId}`, {
+    const res = await fetch(`https://idmsbackend-production.up.railway.app/api/commissions/${editingId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedExpense),

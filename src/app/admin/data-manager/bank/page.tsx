@@ -57,7 +57,7 @@ export default function BankDocumentsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'http://localhost:8080/api/bankdocuments';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/bankdocuments';
 
   // --- Data Fetching (GET) ---
   const fetchBankDocuments = async () => {

@@ -47,7 +47,7 @@ export default function DocumentsPage() {
       setLoading(false);
       return;
     }
-    setApiBaseUrl(`http://localhost:8080/api/hr/documents/employee/${employeeId}`);
+    setApiBaseUrl(`https://idmsbackend-production.up.railway.app/api/hr/documents/employee/${employeeId}`);
   }, []);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function DocumentsPage() {
       if (!apiDoc) throw new Error('Download info not found for this document.');
 
       // Construct the download URL using the correct format
-      const downloadUrl = `http://localhost:8080/api/hr/download/${apiDoc.employeeId}/${apiDoc.documentType.toUpperCase()}`;
+      const downloadUrl = `https://idmsbackend-production.up.railway.app/api/hr/download/${apiDoc.employeeId}/${apiDoc.documentType.toUpperCase()}`;
 
       // Fetch the file from the backend
       const response = await fetch(downloadUrl);

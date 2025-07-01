@@ -121,7 +121,7 @@ const LeaveManagementSystem = () => {
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/leave-requests/hr/all');
+        const res = await fetch('https://idmsbackend-production.up.railway.app/api/leave-requests/hr/all');
         if (!res.ok) throw new Error('Failed to fetch leave requests');
         const apiLeaves = await res.json();
         // Map API data to Leave interface
@@ -170,7 +170,7 @@ const LeaveManagementSystem = () => {
   useEffect(() => {
     const fetchHolidays = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/holidays');
+        const res = await fetch('https://idmsbackend-production.up.railway.app/api/holidays');
         if (!res.ok) throw new Error('Failed to fetch holidays');
         const apiHolidays = await res.json();
         // Map API data to Holiday interface

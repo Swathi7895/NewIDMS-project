@@ -50,7 +50,7 @@ export default function DocumentsPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await fetch('http://localhost:8080/api/hr/documents');
+      const response = await fetch('https://idmsbackend-production.up.railway.app/api/hr/documents');
       
       if (!response.ok) {
         throw new Error('Failed to fetch documents');
@@ -129,7 +129,7 @@ export default function DocumentsPage() {
   const handleDownloadDocument = async (document: Document) => {
     try {
       // Construct the download URL using the correct format
-      const downloadUrl = `http://localhost:8080/api/hr/download/${document.employeeId}/${document.documentType.toUpperCase()}`;
+      const downloadUrl = `https://idmsbackend-production.up.railway.app/api/hr/download/${document.employeeId}/${document.documentType.toUpperCase()}`;
       
       // Fetch the file from the backend
       const response = await fetch(downloadUrl);

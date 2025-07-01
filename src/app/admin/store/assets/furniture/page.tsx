@@ -29,7 +29,7 @@ interface ApiFurnitureItem {
 }
 
 // API service functions
-const API_BASE_URL = 'http://localhost:8080/store/assets/furniture';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/assets/furniture';
 
 const furnitureAPI = {
   // GET - Fetch all furniture items

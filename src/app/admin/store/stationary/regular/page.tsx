@@ -27,7 +27,7 @@ interface ApiOfficeSuppliesItem {
 
 
 
-const API_BASE_URL = 'http://localhost:8080/store/stationary/regular';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/stationary/regular';
 
 export default function RegularStationaryPage() {
   const [items, setItems] = useState<OfficeSuppliesItem[]>([]);

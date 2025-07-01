@@ -92,7 +92,7 @@ const modules: Module[] = [
     color: 'bg-green-500',
     path: '/admin/data-manager/sales',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/sales'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/sales'
   },
   {
     id: 'purchase',
@@ -101,7 +101,7 @@ const modules: Module[] = [
     color: 'bg-orange-500',
     path: '/admin/data-manager/purchase',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/purchases'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/purchases'
   },
   {
     id: 'logistics',
@@ -110,7 +110,7 @@ const modules: Module[] = [
     color: 'bg-green-500',
     path: '/admin/data-manager/logistics',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/logisticsdocuments'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/logisticsdocuments'
   },
   {
     id: 'registration',
@@ -119,7 +119,7 @@ const modules: Module[] = [
     color: 'bg-purple-500',
     path: '/admin/data-manager/registration',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/companyregistrations'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/companyregistrations'
   },
   {
     id: 'bank',
@@ -128,7 +128,7 @@ const modules: Module[] = [
     color: 'bg-yellow-500',
     path: '/admin/data-manager/bank',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/bankdocuments'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/bankdocuments'
   },
   {
     id: 'billing',
@@ -137,7 +137,7 @@ const modules: Module[] = [
     color: 'bg-red-500',
     path: '/admin/data-manager/billing',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/billings'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/billings'
   },
   {
     id: 'ca',
@@ -146,7 +146,7 @@ const modules: Module[] = [
     color: 'bg-indigo-500',
     path: '/admin/data-manager/ca',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/cadocuments'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/cadocuments'
   },
   {
     id: 'tender',
@@ -155,7 +155,7 @@ const modules: Module[] = [
     color: 'bg-orange-500',
     path: '/admin/data-manager/tender',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/tenders'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/tenders'
   },
   {
     id: 'finance',
@@ -164,7 +164,7 @@ const modules: Module[] = [
     color: 'bg-teal-500',
     path: '/admin/data-manager/finance',
     count: 0,
-    apiUrl: 'http://localhost:8080/api/financereports'
+    apiUrl: 'https://idmsbackend-production.up.railway.app/api/financereports'
   }
 ];
 
@@ -229,7 +229,7 @@ export default function DataManagerDashboard() {
         );
 
         // Fetch sales data for charts
-        const salesResponse = await fetch('http://localhost:8080/api/sales');
+        const salesResponse = await fetch('https://idmsbackend-production.up.railway.app/api/sales');
         if (salesResponse.ok) {
           const sales: SalesRecord[] = await salesResponse.json();
           const monthlySales = processMonthlyData(sales, 'date', 'amount');
@@ -245,7 +245,7 @@ export default function DataManagerDashboard() {
         }
 
         // Fetch purchase data for charts
-        const purchasesResponse = await fetch('http://localhost:8080/api/purchases');
+        const purchasesResponse = await fetch('https://idmsbackend-production.up.railway.app/api/purchases');
         if (purchasesResponse.ok) {
           const purchases: PurchaseRecord[] = await purchasesResponse.json();
           const monthlyPurchases = processMonthlyData(purchases, 'date', 'amount');
@@ -261,7 +261,7 @@ export default function DataManagerDashboard() {
         }
 
         // Fetch payment status data
-        const salesForPaymentStatus: SalesRecord[] = await fetch('http://localhost:8080/api/sales')
+        const salesForPaymentStatus: SalesRecord[] = await fetch('https://idmsbackend-production.up.railway.app/api/sales')
           .then(res => res.ok ? res.json() : []);
         
         const paymentStatusCounts: Record<PaymentStatus, number> = {

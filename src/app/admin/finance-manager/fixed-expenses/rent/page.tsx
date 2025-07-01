@@ -20,7 +20,7 @@ export default function RentPage() {
 
   const fetchExpenses = async () => {
     try {
-      const res = await fetch('http://localhost:8080/api/rent');
+      const res = await fetch('https://idmsbackend-production.up.railway.app/api/rent');
       const data = await res.json();
       setExpenses(data);
     } catch (err) {

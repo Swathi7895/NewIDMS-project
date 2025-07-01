@@ -14,7 +14,7 @@ interface LabComponent {
   lastUpdated: Date;
 }
 
-const API_BASE_URL = 'http://localhost:8080/store/lab/components';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/components';
 
 export default function LabComponentsPage() {
   const [components, setComponents] = useState<LabComponent[]>([]);

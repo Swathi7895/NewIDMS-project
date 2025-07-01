@@ -38,7 +38,7 @@ interface ApiPrinterItem {
 }
 
 // API service functions
-const API_BASE_URL = 'http://localhost:8080/store/assets/printers';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/assets/printers';
 
 const printersAPI = {
   // GET - Fetch all printer items

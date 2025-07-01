@@ -21,7 +21,7 @@ interface LabInventory {
   notes: string;
 }
 
-const API_BASE_URL = 'http://localhost:8080/store/lab/inventory';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/inventory';
 
 export default function LabInventoryPage() {
   const [inventory, setInventory] = useState<LabInventory[]>([]);

@@ -75,7 +75,7 @@ const transformEmployeeFromApiResponse = (apiEmployee: ApiEmployeeResponse): Emp
   notes: apiEmployee.notes,
 });
 
-const API_BASE_URL = 'http://localhost:8080/api/employees';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/employees';
 
 const employeesAPI = {
   getAll: async (): Promise<Employee[]> => {

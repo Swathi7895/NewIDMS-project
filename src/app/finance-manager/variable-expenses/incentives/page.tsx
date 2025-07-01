@@ -16,7 +16,7 @@ export default function IncentivesPage() {
   const [newExpense, setNewExpense] = useState({ date: '', amount: '', recipient: '', description: '' });
   const [editingId, setEditingId] = useState<number | null>(null);
 
-  const BASE_URL = 'http://localhost:8080/api/incentives';
+  const BASE_URL = 'https://idmsbackend-production.up.railway.app/api/incentives';
 
   // Fetch data on mount
   useEffect(() => {

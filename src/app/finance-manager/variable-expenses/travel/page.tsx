@@ -11,7 +11,7 @@ interface TravelExpense {
   description: string;
 }
 
-const API_URL = 'http://localhost:8080/api/travel';
+const API_URL = 'https://idmsbackend-production.up.railway.app/api/travel';
 
 const travelAPI = {
   getAll: async (): Promise<TravelExpense[]> => {

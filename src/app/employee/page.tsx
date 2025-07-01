@@ -125,7 +125,7 @@ export default function EmployeeDashboard() {
       return;
     }
     try {
-      const res = await fetch(`http://localhost:8080/api/employees/byEmployeeId/${employeeId}`);
+      const res = await fetch(`https://idmsbackend-production.up.railway.app/api/employees/byEmployeeId/${employeeId}`);
       if (!res.ok) throw new Error("Failed to fetch employee data");
       const data = await res.json();
       setEmployee(data);
@@ -144,7 +144,7 @@ export default function EmployeeDashboard() {
         status: data.status || ''
       });
       if (data.profilePhotoUrl) {
-        setProfilePhoto(`http://localhost:8080${data.profilePhotoUrl}`);
+        setProfilePhoto(`https://idmsbackend-production.up.railway.app${data.profilePhotoUrl}`);
       } else {
         setProfilePhoto('');
       }

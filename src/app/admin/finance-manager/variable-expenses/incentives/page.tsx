@@ -28,7 +28,7 @@ function formatDate(dateString: string) {
 export default function IncentivesPage() {
   const [expenses, setExpenses] = useState<IncentiveExpense[]>([]);
  
-  const BASE_URL = 'http://localhost:8080/api/incentives';
+  const BASE_URL = 'https://idmsbackend-production.up.railway.app/api/incentives';
 
   // Fetch data on mount
   useEffect(() => {

@@ -37,7 +37,7 @@ interface ApiSystemItem {
 }
 
 // API service functions
-const API_BASE_URL = 'http://localhost:8080/store/assets/systems';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/assets/systems';
 
 const systemsAPI = {
   // GET - Fetch all system items

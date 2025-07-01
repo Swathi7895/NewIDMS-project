@@ -30,7 +30,7 @@ interface ApiLabInstrument {
  
 }
 
-const API_BASE_URL = 'http://localhost:8080/store/lab/instruments';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/instruments';
 
 // Move these functions outside the component to prevent recreation on every render
 const mapCondition = (apiCondition: string): LabInstrument['condition'] => {

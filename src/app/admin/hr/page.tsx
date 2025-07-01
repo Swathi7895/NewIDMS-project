@@ -55,7 +55,7 @@ export default function HRDashboard() {
   useEffect(() => {
     setLoadingStats(true);
     setErrorStats(null);
-    fetch('http://localhost:8080/api/employees')
+    fetch('https://idmsbackend-production.up.railway.app/api/employees')
       .then(res => res.json())
       .then((data: Employee[]) => {
         setTotalWorkforce(data.length);
@@ -77,7 +77,7 @@ export default function HRDashboard() {
   useEffect(() => {
     setLoadingActivities(true);
     setErrorActivities(null);
-    fetch('http://localhost:8080/api/activities')
+    fetch('https://idmsbackend-production.up.railway.app/api/activities')
       .then(res => res.json())
       .then((data: Activity[]) => setActivities(data.slice(0, 5)))
       .catch(() => setErrorActivities('Failed to fetch activities'))

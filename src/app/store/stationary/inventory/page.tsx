@@ -14,7 +14,7 @@ interface InventoryTransaction {
   notes: string;
 }
 
-const API_BASE_URL = 'http://localhost:8080/store/stationary/inventory';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/stationary/inventory';
 
 export default function StationaryInventoryPage() {
   const [transactions, setTransactions] = useState<InventoryTransaction[]>([]);
