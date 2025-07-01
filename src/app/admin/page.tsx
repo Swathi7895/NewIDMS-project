@@ -149,7 +149,7 @@ export default function AdminDashboard() {
 
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/auth/register`, {
+      const response = await fetch('https://idmsbackend-production.up.railway.app/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
