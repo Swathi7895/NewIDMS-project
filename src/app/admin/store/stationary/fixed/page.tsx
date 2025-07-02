@@ -8,6 +8,8 @@ import {
  
 } from 'lucide-react';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
+
 interface FixedItem {
   id: string;
   name: string;
@@ -30,7 +32,7 @@ interface ApiFixedItem {
 
 
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/stationary/fixed`;
+const API_BASE_URL = APIURL + `/store/stationary/fixed`;
 
 export default function FixedStationaryPage() {
   const [items, setItems] = useState<FixedItem[]>([]);

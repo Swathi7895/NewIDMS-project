@@ -8,6 +8,7 @@ import {
  
 } from 'lucide-react';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 
 interface LabMaterial {
   id: string;
@@ -19,7 +20,7 @@ interface LabMaterial {
   lastUpdated: Date;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/materials';
+const API_BASE_URL =APIURL + '/store/lab/materials';
 
 export default function LabMaterialsPage() {
   const [materials, setMaterials] = useState<LabMaterial[]>([]);

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface RentExpense {
   id: number;
@@ -20,7 +21,7 @@ export default function RentPage() {
 
   const fetchExpenses = async () => {
     try {
-      const res = await fetch('https://idmsbackend-production.up.railway.app/api/rent');
+      const res = await fetch(APIURL +'/api/rent');
       const data = await res.json();
       setExpenses(data);
     } catch (err) {

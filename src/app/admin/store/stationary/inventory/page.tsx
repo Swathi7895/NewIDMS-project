@@ -8,6 +8,8 @@ import {
  
 } from 'lucide-react';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
+
 
 interface InventoryTransaction {
   id: string;
@@ -19,7 +21,7 @@ interface InventoryTransaction {
   notes: string;
 }
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/stationary/inventory`;
+const API_BASE_URL = APIURL +`/store/stationary/inventory`;
 
 export default function StationaryInventoryPage() {
   const [transactions, setTransactions] = useState<InventoryTransaction[]>([]);

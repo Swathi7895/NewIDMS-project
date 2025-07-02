@@ -27,6 +27,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { APIURL } from '@/constants/api';
 
 // Register ChartJS components
 ChartJS.register(
@@ -69,7 +70,7 @@ const modules: Module[] = [
     color: 'bg-green-500',
     path: '/data-manager/sales',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/sales'
+    apiUrl: APIURL +'/api/sales'
   },
   {
     id: 'purchase',
@@ -78,7 +79,7 @@ const modules: Module[] = [
     color: 'bg-orange-500',
     path: '/data-manager/purchase',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/purchases'
+    apiUrl: APIURL +'/api/purchases'
   },
   {
     id: 'logistics',
@@ -87,7 +88,7 @@ const modules: Module[] = [
     color: 'bg-green-500',
     path: '/data-manager/logistics',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/logisticsdocuments'
+    apiUrl: APIURL +'/api/logisticsdocuments'
   },
   {
     id: 'registration',
@@ -96,7 +97,7 @@ const modules: Module[] = [
     color: 'bg-purple-500',
     path: '/data-manager/registration',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/companyregistrations'
+    apiUrl: APIURL +'/api/companyregistrations'
   },
   {
     id: 'bank',
@@ -105,7 +106,7 @@ const modules: Module[] = [
     color: 'bg-yellow-500',
     path: '/data-manager/bank',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/bankdocuments'
+    apiUrl: APIURL +'/api/bankdocuments'
   },
   {
     id: 'billing',
@@ -114,7 +115,7 @@ const modules: Module[] = [
     color: 'bg-red-500',
     path: '/data-manager/billing',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/billings'
+    apiUrl: APIURL +'/api/billings'
   },
   {
     id: 'ca',
@@ -123,7 +124,7 @@ const modules: Module[] = [
     color: 'bg-indigo-500',
     path: '/data-manager/ca',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/cadocuments'
+    apiUrl: APIURL +'/api/cadocuments'
   },
   {
     id: 'tender',
@@ -132,7 +133,7 @@ const modules: Module[] = [
     color: 'bg-orange-500',
     path: '/data-manager/tender',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/tenders'
+    apiUrl: APIURL +'/api/tenders'
   },
   {
     id: 'finance',
@@ -141,7 +142,7 @@ const modules: Module[] = [
     color: 'bg-teal-500',
     path: '/data-manager/finance',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/financereports'
+    apiUrl: APIURL +'/api/financereports'
   }
 ];
 
@@ -241,7 +242,7 @@ export default function DataManagerDashboard() {
         }
 
         // Fetch payment status data
-        const salesForPaymentStatus = await fetch('https://idmsbackend-production.up.railway.app/api/sales').then(res => res.ok ? res.json() : []);
+        const salesForPaymentStatus = await fetch(APIURL +'/api/sales').then(res => res.ok ? res.json() : []);
         const paymentStatusCounts = {
           'Paid': 0,
           'Pending': 0,

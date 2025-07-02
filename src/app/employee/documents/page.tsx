@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FileText, Download, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import axios from 'axios';
+import { APIURL } from '@/constants/api';
 
 interface Document {
   id: number;
@@ -47,7 +48,7 @@ export default function DocumentsPage() {
       setLoading(false);
       return;
     }
-    setApiBaseUrl(`https://idmsbackend-production.up.railway.app/api/hr/documents/employee/${employeeId}`);
+    setApiBaseUrl(APIURL + '/api/hr/documents/employee/' + employeeId);
   }, []);
 
   useEffect(() => {
@@ -77,7 +78,7 @@ export default function DocumentsPage() {
       if (!apiDoc) throw new Error('Download info not found for this document.');
 
       // Construct the download URL using the correct format
-      const downloadUrl = `https://idmsbackend-production.up.railway.app/api/hr/download/${apiDoc.employeeId}/${apiDoc.documentType.toUpperCase()}`;
+      const downloadUrl = APIURL +`/api/hr/download/${apiDoc.employeeId}/${apiDoc.documentType.toUpperCase()}`;
 
       // Fetch the file from the backend
       const response = await fetch(downloadUrl);

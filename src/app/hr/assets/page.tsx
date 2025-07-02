@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, Plus, Eye, Edit, Trash2, X, Laptop, Package } from 'lucide-react';
+import { APIURL } from '@/constants/api';
 
 interface Asset {
   id?: number;
@@ -12,7 +13,7 @@ interface Asset {
   assignedTo?: string | null;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api';
+const API_BASE_URL = APIURL +'/api';
 
 export default function AssetManagement() {
   const [assets, setAssets] = useState<Asset[]>([]);

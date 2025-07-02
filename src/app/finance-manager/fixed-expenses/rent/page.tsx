@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircleIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/components/BackButton';
-
+import { APIURL } from '@/constants/api';
 interface RentExpense {
   id: number;
   date: number[]; // API returns date as [year, month, day]
@@ -22,7 +22,7 @@ export default function RentPage() {
 
   const fetchExpenses = async () => {
     try {
-      const res = await fetch('https://idmsbackend-production.up.railway.app/api/rent');
+      const res = await fetch(APIURL +'/api/rent');
       const data = await res.json();
       setExpenses(data);
     } catch (err) {
@@ -40,7 +40,7 @@ export default function RentPage() {
     try {
       // Convert the date string from the form (YYYY-MM-DD) to the array format
       const [year, month, day] = newExpense.date.split('-').map(Number);
-      const res = await fetch('https://idmsbackend-production.up.railway.app/api/rent', {
+      const res = await fetch(APIURL +' /api/rent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -60,7 +60,7 @@ export default function RentPage() {
 
   const handleDeleteExpense = async (id: number) => {
     try {
-      const res = await fetch(`https://idmsbackend-production.up.railway.app/api/rent/${id}`, {
+      const res = await fetch(APIURL +`/api/rent/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) fetchExpenses();
@@ -85,7 +85,7 @@ export default function RentPage() {
     try {
       // Convert the date string from the form (YYYY-MM-DD) to the array format
       const [year, month, day] = newExpense.date.split('-').map(Number);
-      const res = await fetch(`https://idmsbackend-production.up.railway.app/api/rent/${editingId}`, {
+      const res = await fetch(APIURL +`/api/rent/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

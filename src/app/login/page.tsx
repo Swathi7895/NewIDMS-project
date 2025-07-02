@@ -5,6 +5,7 @@ import { Lock, User, Eye, EyeOff, Shield } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
+import { APIURL} from '@/constants/api';
 
 interface FormData {
   email: string;
@@ -59,7 +60,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://idmsbackend-production.up.railway.app';
+      const baseUrl = APIURL;
       const apiUrl = loginAsEmployee
         ? `${baseUrl}/api/employees/login`
         : `${baseUrl}/api/auth/login`;

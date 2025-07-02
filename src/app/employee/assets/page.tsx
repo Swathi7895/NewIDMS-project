@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Laptop, Smartphone, CreditCard, Car, Wifi, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { APIURL } from '@/constants/api';
 
 interface Asset {
   id: number;
@@ -25,6 +26,8 @@ interface ApiAsset {
   assetcondition: string;
   assignedTo?: string;
 }
+
+const API_BASE_URL = APIURL + '/api/assets';
 
 function mapApiAssetToAsset(api: ApiAsset): Asset {
   // Map API status/condition to local enums
@@ -86,7 +89,7 @@ export default function AssetsPage() {
       try {
         setLoading(true);
         setError(null); // Clear previous errors
-        const response = await fetch(`https://idmsbackend-production.up.railway.app/api/assets/employee/${employeeId}`);
+        const response = await fetch(`${API_BASE_URL}/employee/${employeeId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch assets');
         }

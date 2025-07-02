@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircleIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface TravelExpense {
   id: number;
@@ -11,7 +12,7 @@ interface TravelExpense {
   description: string;
 }
 
-const API_URL = 'https://idmsbackend-production.up.railway.app/api/travel';
+const API_URL = APIURL +'/api/travel';
 
 const travelAPI = {
   getAll: async (): Promise<TravelExpense[]> => {

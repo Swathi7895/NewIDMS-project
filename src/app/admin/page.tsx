@@ -20,6 +20,7 @@ import {
   Shield,
 } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
+import { APIURL } from '@/constants/api';
 
 interface CreateUserForm {
   username: string;
@@ -149,7 +150,7 @@ export default function AdminDashboard() {
 
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://idmsbackend-production.up.railway.app/api/auth/register', {
+      const response = await fetch(APIURL +'/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

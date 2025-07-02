@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PlusIcon, PencilIcon, TrashIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/app/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface LabInventory {
   id: string;
@@ -16,7 +17,7 @@ interface LabInventory {
   notes: string;
 }
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/lab/inventory`;
+const API_BASE_URL =APIURL + `/store/lab/inventory`;
 
 export default function LabInventoryPage() {
   const [inventory, setInventory] = useState<LabInventory[]>([]);

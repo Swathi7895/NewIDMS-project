@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import ItemManagement from '@/app/components/ItemManagement';
 import BackButton from '@/app/components/BackButton';
 import type { Item } from '@/app/components/ItemManagement';
-
+import { APIURL } from '@/constants/api';
 interface Printer {
   id: string;
   name: string;
@@ -38,7 +38,7 @@ interface ApiPrinterItem {
 }
 
 // API service functions
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/assets/printers';
+const API_BASE_URL = APIURL + '/store/assets/printers';
 
 const printersAPI = {
   // GET - Fetch all printer items

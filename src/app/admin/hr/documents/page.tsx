@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { File,  Search, Filter,  Download,  X,  User, FileText, CreditCard, Briefcase, GraduationCap, LucideIcon } from 'lucide-react';
+import { APIURL } from '@/constants/api';
 
 interface Document {
   id: number;
@@ -50,7 +51,7 @@ export default function DocumentsPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await fetch('https://idmsbackend-production.up.railway.app/api/hr/documents');
+      const response = await fetch(APIURL +'/api/hr/documents');
       
       if (!response.ok) {
         throw new Error('Failed to fetch documents');
@@ -129,7 +130,7 @@ export default function DocumentsPage() {
   const handleDownloadDocument = async (document: Document) => {
     try {
       // Construct the download URL using the correct format
-      const downloadUrl = `https://idmsbackend-production.up.railway.app/api/hr/download/${document.employeeId}/${document.documentType.toUpperCase()}`;
+      const downloadUrl = APIURL +`/api/hr/download/${document.employeeId}/${document.documentType.toUpperCase()}`;
       
       // Fetch the file from the backend
       const response = await fetch(downloadUrl);

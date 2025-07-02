@@ -12,6 +12,7 @@ import {
  
   User
 } from 'lucide-react';
+import { APIURL } from '@/constants/api';
 
 interface Activity {
   id: string;
@@ -82,7 +83,7 @@ const transformActivityFromApiResponse = (apiActivity: ApiActivityResponse): Act
 
 type ModalType = 'add' | 'edit' | 'view';
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/activities';
+const API_BASE_URL = APIURL +'/api/activities';
 
 const activitiesAPI = {
   getAll: async (): Promise<Activity[]> => {

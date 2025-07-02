@@ -14,6 +14,7 @@ import {
   Briefcase,
   EyeOff
 } from 'lucide-react';
+import { APIURL } from '@/constants/api';
 
 interface Employee {
   id: string;
@@ -75,7 +76,7 @@ const transformEmployeeFromApiResponse = (apiEmployee: ApiEmployeeResponse): Emp
   notes: apiEmployee.notes,
 });
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/employees';
+const API_BASE_URL =APIURL + '/api/employees';
 
 const employeesAPI = {
   getAll: async (): Promise<Employee[]> => {

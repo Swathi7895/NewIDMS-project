@@ -20,6 +20,7 @@ import {
   PencilSquareIcon,
 } from '@heroicons/react/24/outline';
 import React from 'react';
+import { APIURL } from '@/constants/api';
 
 type SectionColor = 'indigo' | 'teal' | 'rose';
 
@@ -61,7 +62,7 @@ export default function StorePage() {
           href: "/store/stationary/regular",
           icon: BookOpenIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/stationary/regular',
+          apiUrl: APIURL +'/store/stationary/regular',
         },
         {
           title: "Fixed Assets",
@@ -69,7 +70,7 @@ export default function StorePage() {
           href: "/store/stationary/fixed",
           icon: ArchiveBoxIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/stationary/fixed',
+          apiUrl: APIURL +'/store/stationary/fixed',
         },
         {
           title: "Inventory Transactions",
@@ -77,7 +78,7 @@ export default function StorePage() {
           href: "/store/stationary/inventory",
           icon: DocumentArrowUpIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/stationary/inventory',
+          apiUrl: APIURL +'/store/stationary/inventory',
         }
       ]
     },
@@ -94,7 +95,7 @@ export default function StorePage() {
           href: "/store/lab/instruments",
           icon: PaintBrushIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/instruments',
+          apiUrl: '/store/lab/instruments',
         },
         {
           title: "Spare Parts & Modules",
@@ -102,7 +103,7 @@ export default function StorePage() {
           href: "/store/lab/components",
           icon: WrenchScrewdriverIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/components',
+          apiUrl: APIURL +'/store/lab/components',
         },
         {
           title: "Lab Consumables",
@@ -110,7 +111,7 @@ export default function StorePage() {
           href: "/store/lab/materials",
           icon: CubeTransparentIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/materials',
+          apiUrl: APIURL +'/store/lab/materials',
         },
         {
           title: "Usage & Movement Logs",
@@ -118,7 +119,7 @@ export default function StorePage() {
           href: "/store/lab/inventory",
           icon: ChartBarIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/inventory',
+          apiUrl: APIURL +'/store/lab/inventory',
         }
       ]
     },
@@ -135,7 +136,7 @@ export default function StorePage() {
           href: "/store/assets/furniture",
           icon: TableCellsIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/assets/furniture',
+          apiUrl: APIURL +'/store/assets/furniture',
         },
         {
           title: "Computers and electronic systems",
@@ -143,7 +144,7 @@ export default function StorePage() {
           href: "/store/assets/systems",
           icon: CpuChipIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/assets/systems',
+          apiUrl: APIURL +'/store/assets/systems',
         },
         {
           title: "Printers and other office equipment",
@@ -151,7 +152,7 @@ export default function StorePage() {
           href: "/store/assets/printers",
           icon: PrinterIcon,
           count: 0,
-          apiUrl: 'https://idmsbackend-production.up.railway.app/store/assets/printers',
+          apiUrl: APIURL +'/store/assets/printers',
         }
       ]
     }
@@ -193,7 +194,7 @@ export default function StorePage() {
           const item = section.items[itemIndex];
           
           try {
-            const response = await fetch(item.apiUrl.replace('https://idmsbackend-production.up.railway.app', process.env.NEXT_PUBLIC_API_URL || 'https://idmsbackend-production.up.railway.app'), {
+            const response = await fetch(item.apiUrl.replace(APIURL , process.env.NEXT_PUBLIC_API_URL || APIURL), {
               method: 'GET',
               headers,
             });

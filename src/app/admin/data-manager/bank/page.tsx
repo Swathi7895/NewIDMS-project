@@ -5,6 +5,7 @@ import { Download, Search, Filter, Eye, ArrowLeft } from 'lucide-react';
 
 import DataView, { ViewField } from '../components/DataView';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 
 interface BankDocument {
   id: number;
@@ -57,7 +58,7 @@ export default function BankDocumentsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/bankdocuments';
+  const API_URL = APIURL +'/api/bankdocuments';
 
   // --- Data Fetching (GET) ---
   const fetchBankDocuments = async () => {

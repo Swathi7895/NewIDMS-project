@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface SimBillExpense {
   id: number;
@@ -14,7 +15,7 @@ interface SimBillExpense {
 export default function SimBillsPage() {
   const [expenses, setExpenses] = useState<SimBillExpense[]>([]);
 
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/sim-bills';
+  const API_URL =APIURL + '/api/sim-bills';
 
   useEffect(() => {
     fetchExpenses();

@@ -5,6 +5,7 @@ import { Download, Search, Filter, Eye, ArrowLeft } from 'lucide-react';
 
 import DataView, { ViewField } from '../components/DataView';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 
 interface Purchase {
   id: number;
@@ -35,7 +36,7 @@ export default function PurchasePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/purchases';
+  const API_URL = APIURL +'/api/purchases';
 
   // --- Data Fetching (GET) ---
   const fetchPurchases = async () => {

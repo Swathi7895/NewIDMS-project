@@ -8,6 +8,7 @@ import {
  
 } from 'lucide-react';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 interface Printer {
   id: string;
   name: string;
@@ -41,7 +42,7 @@ interface ApiPrinterItem {
 }
 
 // API service functions
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/assets/printers';
+const API_BASE_URL = APIURL +'/store/assets/printers';
 
 const printersAPI = {
   // GET - Fetch all printer items

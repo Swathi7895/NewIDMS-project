@@ -9,6 +9,7 @@ import {
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { APIURL } from '@/constants/api';
 
 // Changed interface to use checkInTime and checkOutTime for consistency with backend
 interface Attendance {
@@ -31,7 +32,7 @@ interface AttendanceRecord {
   employeeId: string;
 }
  
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/attendance';
+const API_BASE_URL = APIURL + '/api/attendance';
  
 export default function AttendancePage() {
   const [attendance, setAttendance] = useState<Attendance[]>([]);

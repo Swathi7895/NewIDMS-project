@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Download, Search,  Eye, Edit, Trash2 } from 'lucide-react';
 import DataForm, { FormField } from '../components/DataForm';
 import DataView, { ViewField } from '../components/DataView';
+import { APIURL } from '@/constants/api';
 
 interface CADocument {
   id: number;
@@ -59,7 +60,7 @@ const viewFields: ViewField[] = [
   { name: 'status', label: 'Status', type: 'status' }
 ];
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/cadocuments';
+const API_BASE_URL = APIURL + '/api/cadocuments';
 
 export default function CAPage() {
   const [searchTerm, setSearchTerm] = useState('');

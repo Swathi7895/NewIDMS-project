@@ -5,6 +5,7 @@ import { Search, Filter, ArrowLeft, Download, Eye } from 'lucide-react';
 
 import DataView, { ViewField } from '../components/DataView';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 
 interface BillingItem {
   id: number;
@@ -62,7 +63,7 @@ const viewFields: ViewField[] = [
   { name: 'description', label: 'Type', type: 'text' }
 ];
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/billings';
+const API_BASE_URL = APIURL +'/api/billings';
 
 export default function BillingPage() {
   const [searchTerm, setSearchTerm] = useState('');

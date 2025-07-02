@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Award,  Star, Search, Filter,  Eye,  X, User, Building } from 'lucide-react';
+import { APIURL } from '@/constants/api';
 
 interface Employee {
   id?: number;
@@ -32,7 +33,7 @@ interface PerformanceReview {
   reviewer: string;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api';
+const API_BASE_URL = APIURL +'/api';
 
 export default function PerformanceManagement() {
   const [reviews, setReviews] = useState<PerformanceReview[]>([]);

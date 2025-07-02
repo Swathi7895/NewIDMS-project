@@ -14,6 +14,7 @@ import {
  
 } from 'lucide-react';
 import { Employee } from './types';
+import { APIURL } from '@/constants/api';
 
 interface StatCardProps {
   icon: LucideIcon;
@@ -55,7 +56,7 @@ export default function HRDashboard() {
   useEffect(() => {
     setLoadingStats(true);
     setErrorStats(null);
-    fetch('https://idmsbackend-production.up.railway.app/api/employees')
+    fetch(APIURL +'/api/employees')
       .then(res => res.json())
       .then((data: Employee[]) => {
         setTotalWorkforce(data.length);
@@ -77,7 +78,7 @@ export default function HRDashboard() {
   useEffect(() => {
     setLoadingActivities(true);
     setErrorActivities(null);
-    fetch('https://idmsbackend-production.up.railway.app/api/activities')
+    fetch(APIURL +'/api/activities')
       .then(res => res.json())
       .then((data: Activity[]) => setActivities(data.slice(0, 5)))
       .catch(() => setErrorActivities('Failed to fetch activities'))

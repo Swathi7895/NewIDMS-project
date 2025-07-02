@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   Download, FileText, Presentation, Users, Building, Database, Store, UserCheck, DollarSign,
   ArrowRight, Menu, X, Phone, Mail, MapPin, Award, Target, TrendingUp, Shield, CheckCircle, Star,
-   Globe, Zap
+   Globe, Zap,
+   Heading6
 } from 'lucide-react';
 import { useRouter } from "next/navigation";
 import { motion } from 'framer-motion';
@@ -74,13 +75,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center cursor-pointer">
-            <Building className="h-8 w-8 text-gradient" />
+           
             <span className="ml-2 font-bold text-xl tracking-wide text-gray-800">
-              Work<span className="text-gradient">Management</span>
+            <img src="https://www.tirangaaerospace.com/assets/images/logo/logo.png"></img>
             </span>
           </div>
           {/* Desktop Menu */}
-          
+
           <div className="hidden md:flex space-x-8 items-center">
             {['home', 'about', 'services', 'resources', 'contact'].map((section) => (
               <button
@@ -257,9 +258,12 @@ export default function HomePage() {
       {/* Services */}
       <section id="services" className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-            All-in-One <span className="text-gradient">Solutions</span>
+           <h2 className="text-4xl md:text-5xl font-bold  mb-4 text-gray-900">
+           Tiranga IDMS <span className="text-gradient text-xl mb-12 max-w-3xl font-bold mx-auto text-gray-900"><br/>(Internal Data Management System)</span>
           </h2>
+          <p className="text-4xl md:text-5xl  mb-5 text-gray-900">
+            All-in-One <span className="text-gradient">Solutions</span>
+          </p>
           <p className="text-xl mb-12 max-w-3xl mx-auto text-gray-700">
             Manage your workplace seamlessly with our powerful platform.
           </p>

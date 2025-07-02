@@ -14,6 +14,7 @@ import {
   Briefcase,
   EyeOff
 } from 'lucide-react';
+import { APIURL } from '@/constants/api';
  
 interface Employee {
   id: string;
@@ -55,7 +56,7 @@ const transformEmployeeFromApiResponse = (apiEmployee: ApiEmployeeResponse): Emp
   profilePhotoUrl: apiEmployee.profilePhotoUrl,
 });
  
-const API_ORIGIN = 'https://idmsbackend-production.up.railway.app';
+const API_ORIGIN = APIURL ;
 const API_BASE_URL = `${API_ORIGIN}/api/employees`;
  
 const employeesAPI = {

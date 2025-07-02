@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import AdminStore from '@/app/components/AdminStore';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
+
 interface Furniture {
   id: string;
   name: string;
@@ -29,7 +31,7 @@ interface ApiFurnitureItem {
 }
 
 // API service functions
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/assets/furniture`;
+const API_BASE_URL = APIURL + '/store/assets/furniture';
 
 const furnitureAPI = {
   // GET - Fetch all furniture items

@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import axios from 'axios';
+import { APIURL } from '@/constants/api';
 
 interface Employee {
   id: string;
@@ -63,7 +64,7 @@ interface SentMemo {
   totalRecipients: number;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api';
+const API_BASE_URL = APIURL +'/api';
 
 const formatDateArray = (dateArray: [number, number, number] | undefined) => {
     if (!dateArray || dateArray.length !== 3) return 'N/A';

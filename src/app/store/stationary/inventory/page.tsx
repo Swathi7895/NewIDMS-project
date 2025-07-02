@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PlusIcon, ArrowUpIcon, ArrowDownIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'; // Import PencilIcon and TrashIcon
 import BackButton from '@/app/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface InventoryTransaction {
   id: string;
@@ -14,7 +15,7 @@ interface InventoryTransaction {
   notes: string;
 }
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/stationary/inventory`;
+const API_BASE_URL =APIURL + `/store/stationary/inventory`;
 
 export default function StationaryInventoryPage() {
   const [transactions, setTransactions] = useState<InventoryTransaction[]>([]);

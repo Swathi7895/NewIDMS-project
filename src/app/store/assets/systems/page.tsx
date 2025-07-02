@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ItemManagement from '@/app/components/ItemManagement';
 import BackButton from '@/app/components/BackButton';
 import type { Item } from '@/app/components/ItemManagement';
+import { APIURL } from '@/constants/api';
 
 interface System {
   id: string;
@@ -36,7 +37,7 @@ interface ApiSystem {
 }
 
 // API service functions
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/assets/systems`;
+const API_BASE_URL = APIURL + '/store/assets/systems';
 
 const systemsAPI = {
   // GET - Fetch all system items

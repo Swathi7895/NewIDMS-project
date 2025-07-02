@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircleIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface ElectricBillExpense {
   id: number;
@@ -18,7 +19,7 @@ export default function ElectricBillsPage() {
 
   // ✅ Fetch electric bills from backend
   useEffect(() => {
-    fetch('https://idmsbackend-production.up.railway.app/api/electric-bills')
+    fetch(APIURL +'/api/electric-bills')
       .then((res) => res.json())
       .then(setExpenses)
       .catch((err) => console.error('Error fetching bills:', err));
@@ -35,7 +36,7 @@ export default function ElectricBillsPage() {
     try {
       // Convert the date string from the form (YYYY-MM-DD) to the array format
       const [year, month, day] = newExpense.date.split('-').map(Number);
-      const res = await fetch('https://idmsbackend-production.up.railway.app/api/electric-bills', {
+      const res = await fetch(APIURL +'/api/electric-bills', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -55,7 +56,7 @@ export default function ElectricBillsPage() {
   // ✅ Delete electric bill (DELETE)
   const handleDeleteExpense = async (id: number) => {
     try {
-      await fetch(`https://idmsbackend-production.up.railway.app/api/electric-bills/${id}`, { method: 'DELETE' });
+      await fetch(APIURL +`/api/electric-bills/${id}`, { method: 'DELETE' });
       setExpenses(expenses.filter(exp => exp.id !== id));
     } catch (error) {
       console.error('Delete error:', error);
@@ -79,7 +80,7 @@ export default function ElectricBillsPage() {
     try {
       // Convert the date string from the form (YYYY-MM-DD) to the array format
       const [year, month, day] = newExpense.date.split('-').map(Number);
-      const res = await fetch(`https://idmsbackend-production.up.railway.app/api/electric-bills/${editingId}`, {
+      const res = await fetch(APIURL +`/api/electric-bills/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

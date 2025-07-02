@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircleIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface ExpoAdvertisementExpense {
   id: number;
@@ -11,7 +12,7 @@ interface ExpoAdvertisementExpense {
   description: string;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/expo-advertisements';
+const API_BASE_URL = APIURL +'/api/expo-advertisements';
 
 const expoAPI = {
   getAll: async (): Promise<ExpoAdvertisementExpense[]> => {

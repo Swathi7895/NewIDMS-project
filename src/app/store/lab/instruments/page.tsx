@@ -5,6 +5,7 @@ import ItemManagement from '@/app/components/ItemManagement';
 import BackButton from '@/app/components/BackButton';
 import type { Item } from '@/app/components/ItemManagement';
 import { useRouter } from 'next/navigation';
+import { APIURL } from '@/constants/api';
 
 interface LabInstrument {
   id: string;
@@ -30,7 +31,7 @@ interface ApiLabInstrument {
  
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/instruments';
+const API_BASE_URL = APIURL +'/store/lab/instruments';
 
 // Move these functions outside the component to prevent recreation on every render
 const mapCondition = (apiCondition: string): LabInstrument['condition'] => {

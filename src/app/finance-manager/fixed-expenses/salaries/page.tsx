@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircleIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface SalaryExpense {
   id: number;
@@ -16,7 +17,7 @@ export default function SalariesPage() {
   const [expenses, setExpenses] = useState<SalaryExpense[]>([]);
   const [newExpense, setNewExpense] = useState({ employeeName: '', date: '', amount: '', description: '' });
   const [editingId, setEditingId] = useState<number | null>(null);
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/salaries';
+  const API_URL =APIURL + '/api/salaries';
 
   useEffect(() => {
     fetchExpenses();

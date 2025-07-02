@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ItemManagement from '@/app/components/ItemManagement';
 import BackButton from '@/app/components/BackButton';
 import type { Item } from '@/app/components/ItemManagement';
+import { APIURL } from '@/constants/api';
 
 interface Furniture {
   id: string;
@@ -30,7 +31,7 @@ interface ApiFurnitureItem {
 }
 
 // API service functions
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/assets/furniture`;
+const API_BASE_URL = APIURL + '/store/assets/furniture';
 
 const furnitureAPI = {
   // GET - Fetch all furniture items

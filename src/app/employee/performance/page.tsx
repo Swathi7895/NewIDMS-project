@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Star, TrendingUp, Award, Calendar, Briefcase, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { APIURL } from '@/constants/api';
 
 interface APIReview {
   id: number;
@@ -60,7 +61,7 @@ export default function PerformancePage() {
     
     setLoading(true);
     setError(null); // Clear previous errors
-    fetch(`https://idmsbackend-production.up.railway.app/api/performance-reviews/employee/byId/${employeeId}`)
+    fetch(APIURL +`/api/performance-reviews/employee/byId/${employeeId}`)
       .then(res => res.json())
       .then((data: APIReview[]) => {
         setReviews(Array.isArray(data) ? data : []);

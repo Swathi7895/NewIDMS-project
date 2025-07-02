@@ -5,7 +5,7 @@ import AdminStore from '@/app/components/AdminStore';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-
+import { APIURL } from '@/constants/api';
 interface System {
   id: string;
   name: string;
@@ -37,7 +37,7 @@ interface ApiSystemItem {
 }
 
 // API service functions
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/assets/systems';
+const API_BASE_URL = APIURL + '/store/assets/systems';
 
 const systemsAPI = {
   // GET - Fetch all system items

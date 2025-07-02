@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { APIURL } from '@/constants/api';
 
 interface Memo {
   id: string;
@@ -28,7 +29,7 @@ interface Memo {
   status?: 'sent' | 'draft';
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api';
+const API_BASE_URL = APIURL +'/api';
 
 export default function EmployeeMemosPage() {
   const router = useRouter();

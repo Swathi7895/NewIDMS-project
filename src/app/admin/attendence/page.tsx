@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import axios from 'axios';
+import { APIURL } from '@/constants/api';
  
 
  
@@ -63,7 +64,7 @@ export default function AdminAttendanceDashboard() {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get('https://idmsbackend-production.up.railway.app/api/attendance');
+        const response = await axios.get(APIURL +'/api/attendance');
         // Map API response to AttendanceRecord[] with late logic
         const mappedData: AttendanceRecord[] = response.data.map((record: BackendAttendanceRecord) => {
           // Convert backend date array to 'YYYY-MM-DD' string

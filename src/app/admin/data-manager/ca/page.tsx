@@ -5,6 +5,7 @@ import { Download, Search, Filter, Eye, ArrowLeft } from 'lucide-react';
 
 import DataView, { ViewField } from '../components/DataView';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 
 interface CADocument {
   id: number;
@@ -63,7 +64,7 @@ const viewFields: ViewField[] = [
   { name: 'status', label: 'Status', type: 'status' }
 ];
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/cadocuments`;
+const API_BASE_URL =APIURL + `/api/cadocuments`;
 
 export default function CAPage() {
   const [searchTerm, setSearchTerm] = useState('');

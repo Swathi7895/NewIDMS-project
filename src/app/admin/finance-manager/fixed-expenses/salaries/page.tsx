@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface SalaryExpense {
   id: number;
@@ -14,7 +15,7 @@ interface SalaryExpense {
 
 export default function SalariesPage() {
   const [expenses, setExpenses] = useState<SalaryExpense[]>([]);
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/salaries';
+  const API_URL =APIURL + '/api/salaries';
 
   useEffect(() => {
     fetchExpenses();

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface CommissionExpense {
   id: number;
@@ -30,7 +31,7 @@ export default function CommissionsPage() {
   const [expenses, setExpenses] = useState<CommissionExpense[]>([]);
  
   useEffect(() => {
-    fetch('https://idmsbackend-production.up.railway.app/api/commissions')
+    fetch(APIURL +'/api/commissions')
       .then(res => res.json())
       .then(data => setExpenses(data));
   }, []);

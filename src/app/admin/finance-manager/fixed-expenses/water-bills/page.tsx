@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface WaterBillExpense {
   id: number;
@@ -13,7 +14,7 @@ interface WaterBillExpense {
 export default function WaterBillsPage() {
   const [expenses, setExpenses] = useState<WaterBillExpense[]>([]);
 
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/water-bills';
+  const API_URL = APIURL +'/api/water-bills';
 
   useEffect(() => {
     fetchExpenses();

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface IncentiveExpense {
   id: number;
@@ -28,7 +29,7 @@ function formatDate(dateString: string) {
 export default function IncentivesPage() {
   const [expenses, setExpenses] = useState<IncentiveExpense[]>([]);
  
-  const BASE_URL = 'https://idmsbackend-production.up.railway.app/api/incentives';
+  const BASE_URL = APIURL +'/api/incentives';
 
   // Fetch data on mount
   useEffect(() => {

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/app/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface LabMaterial {
   id: string;
@@ -14,7 +15,7 @@ interface LabMaterial {
   lastUpdated: Date;
 }
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/lab/materials`;
+const API_BASE_URL = APIURL +`/store/lab/materials`;
 
 export default function LabMaterialsPage() {
   const [materials, setMaterials] = useState<LabMaterial[]>([]);

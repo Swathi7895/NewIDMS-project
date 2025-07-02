@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import axios from 'axios';
+import { APIURL } from '@/constants/api';
 
 interface Report {
   id: number;
@@ -106,7 +107,7 @@ export default function ReportsPage() {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get('https://idmsbackend-production.up.railway.app/api/reports');
+        const response = await axios.get(APIURL +'/api/reports');
         const mappedReports: Report[] = response.data.map((r: Report) => ({
           id: r.id,
           type: r.type,

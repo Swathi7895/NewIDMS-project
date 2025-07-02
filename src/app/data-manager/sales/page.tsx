@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Plus,  Download, Search, Eye, Edit, Trash2 } from 'lucide-react';
 import DataForm, { FormField } from '../components/DataForm';
 import DataView, { ViewField } from '../components/DataView';
+import { APIURL } from '@/constants/api';
 
 interface Sale {
   id: number;
@@ -42,7 +43,7 @@ export default function SalesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/sales';
+  const API_URL = APIURL +'/api/sales';
 
   // --- Data Fetching (GET) ---
   const fetchSales = async () => {

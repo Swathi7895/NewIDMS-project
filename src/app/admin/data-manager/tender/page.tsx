@@ -5,6 +5,7 @@ import { Download, Search, Filter, Eye, ArrowLeft } from 'lucide-react';
 
 import DataView, { ViewField } from '../components/DataView';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 
 interface Tender {
   id: number;
@@ -55,7 +56,7 @@ export default function TenderManagementPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/tenders`;
+  const API_URL = APIURL +`/api/tenders`;
 
   // --- Data Fetching (GET) ---
   const fetchTenders = async () => {

@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { APIURL } from '@/constants/api';
  
 interface Report {
   id: number;
@@ -31,7 +32,7 @@ interface Report {
 }
  
 // Define your backend API base URL
-const BASE_URL = 'https://idmsbackend-production.up.railway.app/api/reports'; // Your Spring Boot backend URL
+const BASE_URL = APIURL + '/api/reports'; // Your Spring Boot backend URL
  
 export default function ReportsPage() {
   const router = useRouter();

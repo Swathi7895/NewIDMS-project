@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import ItemManagement from '@/app/components/ItemManagement';
 import BackButton from '@/app/components/BackButton';
 import type { Item } from '@/app/components/ItemManagement';
+import { APIURL } from '@/constants/api';
 
 interface StationaryItem {
   id: string;
@@ -33,7 +34,7 @@ interface ApiRequestBody {
   lastUpdated: string;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/stationary/regular';
+const API_BASE_URL = APIURL +'/store/stationary/regular';
 
 // Helper function to convert API response to local format
 const convertApiToLocal = (apiItem: ApiStationaryItem): StationaryItem => {

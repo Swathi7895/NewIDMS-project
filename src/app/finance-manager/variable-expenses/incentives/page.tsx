@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PlusCircleIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 interface IncentiveExpense {
   id: number;
   date: number[]; // API returns date as [year, month, day]
@@ -16,7 +17,7 @@ export default function IncentivesPage() {
   const [newExpense, setNewExpense] = useState({ date: '', amount: '', recipient: '', description: '' });
   const [editingId, setEditingId] = useState<number | null>(null);
 
-  const BASE_URL = 'https://idmsbackend-production.up.railway.app/api/incentives';
+  const BASE_URL = APIURL +'/api/incentives';
 
   // Fetch data on mount
   useEffect(() => {

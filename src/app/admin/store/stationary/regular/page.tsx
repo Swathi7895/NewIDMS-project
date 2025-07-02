@@ -4,6 +4,7 @@ import { useState,useEffect, useCallback } from 'react';
 import AdminStore from '@/app/components/AdminStore';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { APIURL } from '@/constants/api';
 
 interface OfficeSuppliesItem {
   id: string;
@@ -27,7 +28,7 @@ interface ApiOfficeSuppliesItem {
 
 
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/stationary/regular';
+const API_BASE_URL = APIURL +'/store/stationary/regular';
 
 export default function RegularStationaryPage() {
   const [items, setItems] = useState<OfficeSuppliesItem[]>([]);

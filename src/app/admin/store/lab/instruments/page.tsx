@@ -9,6 +9,7 @@ import {
   ArrowLeft,
  
 } from 'lucide-react';
+import { APIURL } from '@/constants/api';
 
 interface LabInstrument {
   id: string;
@@ -35,7 +36,7 @@ interface ApiLabInstrument {
   status?: string;
 }
 
-const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/instruments';
+const API_BASE_URL = APIURL +'/store/lab/instruments';
 
 export default function LabInstrumentsPage() {
   const [items, setItems] = useState<LabInstrument[]>([]);

@@ -10,6 +10,7 @@ import {
   BanknotesIcon,
  
 } from '@heroicons/react/24/outline';
+import { APIURL } from '@/constants/api';
 
 
 interface Expense {
@@ -37,20 +38,20 @@ export default function FinanceManagerDashboard() {
       try {
         // Fetch fixed expenses
         const fixedExpensesResponses = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rent`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/electric-bills`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/internet-bills`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sim-bills`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/water-bills`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/salaries`).then(res => res.json()),
+          fetch( APIURL +`/api/rent`).then(res => res.json()),
+          fetch(`APIURL +/api/electric-bills`).then(res => res.json()),
+          fetch(`APIURL +/api/internet-bills`).then(res => res.json()),
+          fetch(`APIURL +/api/sim-bills`).then(res => res.json()),
+          fetch(`APIURL +/api/water-bills`).then(res => res.json()),
+          fetch(`APIURL +/api/salaries`).then(res => res.json()),
         ]);
 
         // Fetch variable expenses
         const variableExpensesResponses = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/travel`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expo-advertisement`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/incentives`).then(res => res.json()),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/commission`).then(res => res.json()),
+          fetch(`APIURL +/api/travel`).then(res => res.json()),
+          fetch(`APIURL +/api/expo-advertisement`).then(res => res.json()),
+          fetch(`APIURL +/api/incentives`).then(res => res.json()),
+          fetch(`APIURL +/api/commission`).then(res => res.json()),
         ]);
 
         // Extract data arrays from responses and ensure they are arrays

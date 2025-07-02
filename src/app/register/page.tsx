@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Lock, Mail, Shield, User, Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
+import { APIURL } from '@/constants/api';
 
 interface FormData {
   name: string;
@@ -66,7 +67,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
+      const response = await fetch(APIURL + '/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

@@ -18,6 +18,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { APIURL } from '@/constants/api';
  
 interface QuickLink {
   title: string;
@@ -127,7 +128,7 @@ export default function EmployeeDashboard() {
       return;
     }
     try {
-      const res = await fetch(`https://idmsbackend-production.up.railway.app/api/employees/byEmployeeId/${employeeId}`);
+      const res = await fetch(APIURL +`/api/employees/byEmployeeId/${employeeId}`);
       if (!res.ok) throw new Error("Failed to fetch employee data");
       const data = await res.json();
       setEmployee(data);
@@ -147,7 +148,7 @@ export default function EmployeeDashboard() {
         status: data.status || ''
       });
       if (data.profilePhotoUrl) {
-        setProfilePhoto(`https://idmsbackend-production.up.railway.app${data.profilePhotoUrl}`);
+        setProfilePhoto(APIURL +`${data.profilePhotoUrl}`);
       } else {
         setProfilePhoto('');
       }

@@ -28,6 +28,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { APIURL } from '@/constants/api';
 
 // Register ChartJS components
 ChartJS.register(
@@ -92,7 +93,7 @@ const modules: Module[] = [
     color: 'bg-green-500',
     path: '/admin/data-manager/sales',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/sales'
+    apiUrl: APIURL +'/api/sales'
   },
   {
     id: 'purchase',
@@ -101,7 +102,7 @@ const modules: Module[] = [
     color: 'bg-orange-500',
     path: '/admin/data-manager/purchase',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/purchases'
+    apiUrl: APIURL +'/api/purchases'
   },
   {
     id: 'logistics',
@@ -110,7 +111,7 @@ const modules: Module[] = [
     color: 'bg-green-500',
     path: '/admin/data-manager/logistics',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/logisticsdocuments'
+    apiUrl: APIURL +'/api/logisticsdocuments'
   },
   {
     id: 'registration',
@@ -119,7 +120,7 @@ const modules: Module[] = [
     color: 'bg-purple-500',
     path: '/admin/data-manager/registration',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/companyregistrations'
+    apiUrl: APIURL +'/api/companyregistrations'
   },
   {
     id: 'bank',
@@ -128,7 +129,7 @@ const modules: Module[] = [
     color: 'bg-yellow-500',
     path: '/admin/data-manager/bank',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/bankdocuments'
+    apiUrl: APIURL +'/api/bankdocuments'
   },
   {
     id: 'billing',
@@ -137,7 +138,7 @@ const modules: Module[] = [
     color: 'bg-red-500',
     path: '/admin/data-manager/billing',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/billings'
+    apiUrl: APIURL +'/api/billings'
   },
   {
     id: 'ca',
@@ -146,7 +147,7 @@ const modules: Module[] = [
     color: 'bg-indigo-500',
     path: '/admin/data-manager/ca',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/cadocuments'
+    apiUrl: APIURL +'/api/cadocuments'
   },
   {
     id: 'tender',
@@ -155,7 +156,7 @@ const modules: Module[] = [
     color: 'bg-orange-500',
     path: '/admin/data-manager/tender',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/tenders'
+    apiUrl: APIURL +'/api/tenders'
   },
   {
     id: 'finance',
@@ -164,7 +165,7 @@ const modules: Module[] = [
     color: 'bg-teal-500',
     path: '/admin/data-manager/finance',
     count: 0,
-    apiUrl: 'https://idmsbackend-production.up.railway.app/api/financereports'
+    apiUrl: APIURL + '/api/financereports'
   }
 ];
 
@@ -229,7 +230,7 @@ export default function DataManagerDashboard() {
         );
 
         // Fetch sales data for charts
-        const salesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sales`);
+        const salesResponse = await fetch(APIURL +`/api/sales`);
         if (salesResponse.ok) {
           const sales: SalesRecord[] = await salesResponse.json();
           const monthlySales = processMonthlyData(sales, 'date', 'amount');
@@ -245,7 +246,7 @@ export default function DataManagerDashboard() {
         }
 
         // Fetch purchase data for charts
-        const purchasesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/purchases`);
+        const purchasesResponse = await fetch(APIURL +`/api/purchases`);
         if (purchasesResponse.ok) {
           const purchases: PurchaseRecord[] = await purchasesResponse.json();
           const monthlyPurchases = processMonthlyData(purchases, 'date', 'amount');
@@ -261,7 +262,7 @@ export default function DataManagerDashboard() {
         }
 
         // Fetch payment status data
-        const salesForPaymentStatus: SalesRecord[] = await fetch('https://idmsbackend-production.up.railway.app/api/sales')
+        const salesForPaymentStatus: SalesRecord[] = await fetch(APIURL +'/api/sales')
           .then(res => res.ok ? res.json() : []);
         
         const paymentStatusCounts: Record<PaymentStatus, number> = {

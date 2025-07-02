@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircleIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import BackButton from '@/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface InternetBillExpense {
   id: number;
@@ -16,7 +17,7 @@ export default function InternetBillsPage() {
   const [newExpense, setNewExpense] = useState({ date: '', amount: '', description: '' });
   const [editingId, setEditingId] = useState<number | null>(null);
 
-  const API_URL = 'https://idmsbackend-production.up.railway.app/api/internet-bills';
+  const API_URL = 'APIURL +/api/internet-bills';
 
   // 🟢 Fetch expenses from backend
   const fetchExpenses = async () => {

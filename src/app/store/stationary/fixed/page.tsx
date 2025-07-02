@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import ItemManagement from '@/app/components/ItemManagement';
 import BackButton from '@/app/components/BackButton';
+import { APIURL } from '@/constants/api';
 
 interface FixedItem {
   id: string;
@@ -32,7 +33,7 @@ interface ApiRequestBody {
   lastUpdated: string;
 }
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/stationary/fixed`;
+const API_BASE_URL = APIURL +`/store/stationary/fixed`;
 
 export default function FixedStationaryPage() {
   const [items, setItems] = useState<FixedItem[]>([]);
