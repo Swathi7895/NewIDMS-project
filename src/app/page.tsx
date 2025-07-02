@@ -67,7 +67,7 @@ export default function HomePage() {
     'bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-400'
   ];
 
-  return (
+  return (     
     <div className="min-h-screen font-sans text-gray-900 bg-gradient-to-br from-white via-gray-50 to-gray-100 transition-all duration-300">
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-shadow duration-300 ${scrollY > 50 ? 'bg-white shadow-lg' : 'bg-transparent'}`}>
@@ -80,6 +80,7 @@ export default function HomePage() {
             </span>
           </div>
           {/* Desktop Menu */}
+          
           <div className="hidden md:flex space-x-8 items-center">
             {['home', 'about', 'services', 'resources', 'contact'].map((section) => (
               <button
