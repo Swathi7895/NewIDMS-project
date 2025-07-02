@@ -16,7 +16,7 @@ export default function WaterBillsPage() {
   const [newExpense, setNewExpense] = useState({ date: '', amount: '', description: '' });
   const [editingId, setEditingId] = useState<number | null>(null);
 
-  const API_URL = 'http://localhost:8080/api/water-bills';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/water-bills';
 
   useEffect(() => {
     fetchExpenses();

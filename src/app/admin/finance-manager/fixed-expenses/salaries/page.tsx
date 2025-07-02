@@ -14,7 +14,7 @@ interface SalaryExpense {
 
 export default function SalariesPage() {
   const [expenses, setExpenses] = useState<SalaryExpense[]>([]);
-  const API_URL = 'http://localhost:8080/api/salaries';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/salaries';
 
   useEffect(() => {
     fetchExpenses();

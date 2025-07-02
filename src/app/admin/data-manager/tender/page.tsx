@@ -55,7 +55,7 @@ export default function TenderManagementPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'http://localhost:8080/api/tenders';
+  const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/tenders`;
 
   // --- Data Fetching (GET) ---
   const fetchTenders = async () => {

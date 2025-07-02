@@ -59,7 +59,7 @@ const viewFields: ViewField[] = [
   { name: 'description', label: 'Type', type: 'text' }
 ];
 
-const API_BASE_URL = 'http://localhost:8080/api/billings';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/billings';
 
 export default function BillingPage() {
   const [searchTerm, setSearchTerm] = useState('');

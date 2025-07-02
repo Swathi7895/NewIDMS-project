@@ -61,7 +61,7 @@ export default function StorePage() {
           href: "/store/stationary/regular",
           icon: BookOpenIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/stationary/regular',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/stationary/regular',
         },
         {
           title: "Fixed Assets",
@@ -69,7 +69,7 @@ export default function StorePage() {
           href: "/store/stationary/fixed",
           icon: ArchiveBoxIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/stationary/fixed',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/stationary/fixed',
         },
         {
           title: "Inventory Transactions",
@@ -77,7 +77,7 @@ export default function StorePage() {
           href: "/store/stationary/inventory",
           icon: DocumentArrowUpIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/stationary/inventory',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/stationary/inventory',
         }
       ]
     },
@@ -94,7 +94,7 @@ export default function StorePage() {
           href: "/store/lab/instruments",
           icon: PaintBrushIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/lab/instruments',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/instruments',
         },
         {
           title: "Spare Parts & Modules",
@@ -102,7 +102,7 @@ export default function StorePage() {
           href: "/store/lab/components",
           icon: WrenchScrewdriverIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/lab/components',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/components',
         },
         {
           title: "Lab Consumables",
@@ -110,7 +110,7 @@ export default function StorePage() {
           href: "/store/lab/materials",
           icon: CubeTransparentIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/lab/materials',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/materials',
         },
         {
           title: "Usage & Movement Logs",
@@ -118,7 +118,7 @@ export default function StorePage() {
           href: "/store/lab/inventory",
           icon: ChartBarIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/lab/inventory',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/lab/inventory',
         }
       ]
     },
@@ -135,7 +135,7 @@ export default function StorePage() {
           href: "/store/assets/furniture",
           icon: TableCellsIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/assets/furniture',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/assets/furniture',
         },
         {
           title: "Computers and electronic systems",
@@ -143,7 +143,7 @@ export default function StorePage() {
           href: "/store/assets/systems",
           icon: CpuChipIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/assets/systems',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/assets/systems',
         },
         {
           title: "Printers and other office equipment",
@@ -151,7 +151,7 @@ export default function StorePage() {
           href: "/store/assets/printers",
           icon: PrinterIcon,
           count: 0,
-          apiUrl: 'http://localhost:8080/store/assets/printers',
+          apiUrl: 'https://idmsbackend-production.up.railway.app/store/assets/printers',
         }
       ]
     }
@@ -193,7 +193,7 @@ export default function StorePage() {
           const item = section.items[itemIndex];
           
           try {
-            const response = await fetch(item.apiUrl, {
+            const response = await fetch(item.apiUrl.replace('https://idmsbackend-production.up.railway.app', process.env.NEXT_PUBLIC_API_URL || 'https://idmsbackend-production.up.railway.app'), {
               method: 'GET',
               headers,
             });

@@ -11,7 +11,7 @@ interface ExpoAdvertisementExpense {
   description: string;
 }
 
-const API_BASE_URL = 'http://localhost:8080/api/expo-advertisements';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/expo-advertisements';
 
 const expoAPI = {
   getAll: async (): Promise<ExpoAdvertisementExpense[]> => {

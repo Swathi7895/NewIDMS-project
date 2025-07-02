@@ -30,7 +30,7 @@ interface ApiFixedItem {
 
 
 
-const API_BASE_URL = 'http://localhost:8080/store/stationary/fixed';
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/store/stationary/fixed`;
 
 export default function FixedStationaryPage() {
   const [items, setItems] = useState<FixedItem[]>([]);

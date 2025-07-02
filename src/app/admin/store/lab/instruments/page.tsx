@@ -35,7 +35,7 @@ interface ApiLabInstrument {
   status?: string;
 }
 
-const API_BASE_URL = 'http://localhost:8080/store/lab/instruments';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/lab/instruments';
 
 export default function LabInstrumentsPage() {
   const [items, setItems] = useState<LabInstrument[]>([]);

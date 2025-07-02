@@ -31,7 +31,7 @@ interface Report {
 }
  
 // Define your backend API base URL
-const BASE_URL = 'http://localhost:8080/api/reports'; // Your Spring Boot backend URL
+const BASE_URL = 'https://idmsbackend-production.up.railway.app/api/reports'; // Your Spring Boot backend URL
  
 export default function ReportsPage() {
   const router = useRouter();

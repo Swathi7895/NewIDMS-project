@@ -55,7 +55,7 @@ const transformEmployeeFromApiResponse = (apiEmployee: ApiEmployeeResponse): Emp
   profilePhotoUrl: apiEmployee.profilePhotoUrl,
 });
  
-const API_ORIGIN = 'http://localhost:8080';
+const API_ORIGIN = 'https://idmsbackend-production.up.railway.app';
 const API_BASE_URL = `${API_ORIGIN}/api/employees`;
  
 const employeesAPI = {

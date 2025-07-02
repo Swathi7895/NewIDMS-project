@@ -31,7 +31,7 @@ interface AttendanceRecord {
   employeeId: string;
 }
  
-const API_BASE_URL = 'http://localhost:8080/api/attendance';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/attendance';
  
 export default function AttendancePage() {
   const [attendance, setAttendance] = useState<Attendance[]>([]);

@@ -33,7 +33,7 @@ interface ApiRequestBody {
   lastUpdated: string;
 }
 
-const API_BASE_URL = 'http://localhost:8080/store/stationary/regular';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/store/stationary/regular';
 
 // Helper function to convert API response to local format
 const convertApiToLocal = (apiItem: ApiStationaryItem): StationaryItem => {

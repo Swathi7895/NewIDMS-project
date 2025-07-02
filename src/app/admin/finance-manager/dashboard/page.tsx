@@ -38,20 +38,20 @@ export default function FinanceManagerDashboard() {
       try {
         // Fetch fixed expenses
         const fixedExpensesResponses = await Promise.all([
-          fetch('http://localhost:8080/api/rent').then(res => res.json()),
-          fetch('http://localhost:8080/api/electric-bills').then(res => res.json()),
-          fetch('http://localhost:8080/api/internet-bills').then(res => res.json()),
-          fetch('http://localhost:8080/api/sim-bills').then(res => res.json()),
-          fetch('http://localhost:8080/api/water-bills').then(res => res.json()),
-          fetch('http://localhost:8080/api/salaries').then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rent`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/electric-bills`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/internet-bills`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sim-bills`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/water-bills`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/salaries`).then(res => res.json()),
         ]);
 
         // Fetch variable expenses
         const variableExpensesResponses = await Promise.all([
-          fetch('http://localhost:8080/api/travel').then(res => res.json()),
-          fetch('http://localhost:8080/api/expo-advertisement').then(res => res.json()),
-          fetch('http://localhost:8080/api/incentives').then(res => res.json()),
-          fetch('http://localhost:8080/api/commission').then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/travel`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expo-advertisement`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/incentives`).then(res => res.json()),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/commission`).then(res => res.json()),
         ]);
 
         // Extract data arrays from responses and ensure they are arrays
@@ -141,7 +141,7 @@ export default function FinanceManagerDashboard() {
       bgColor: 'bg-blue-50 dark:bg-blue-900/20',
       iconColor: 'text-blue-600 dark:text-blue-400',
       features: [
-        { name: 'Rent', link: '/admin/finance-manager/fixed-expenses/rent', icon: '🏠' },
+        { name: 'Rent', link: '/admin/finance-manager/fixed-expenses/rent', icon: '��' },
         { name: 'Electric Bills', link: '/admin/finance-manager/fixed-expenses/electric-bills', icon: '⚡' },
         { name: 'Internet Bills', link: '/admin/finance-manager/fixed-expenses/internet-bills', icon: '🌐' },
         { name: 'SIM Bills', link: '/admin/finance-manager/fixed-expenses/sim-bills', icon: '📱' },

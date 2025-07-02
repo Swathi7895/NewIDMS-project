@@ -33,7 +33,7 @@ export default function LeavesPage() {
   const [error, setError] = useState<string | null>(null);
   const [employeeId, setEmployeeId] = useState<string | null>(null);
  
-  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL_LEAVE_REQUESTS || 'http://localhost:8080/api/leave-requests';
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL_LEAVE_REQUESTS || 'https://idmsbackend-production.up.railway.app/api/leave-requests';
  
   // Get employee ID from sessionStorage on component mount
   useEffect(() => {

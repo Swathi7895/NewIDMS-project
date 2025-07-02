@@ -30,7 +30,7 @@ export default function CommissionsPage() {
   const [expenses, setExpenses] = useState<CommissionExpense[]>([]);
  
   useEffect(() => {
-    fetch('http://localhost:8080/api/commissions')
+    fetch('https://idmsbackend-production.up.railway.app/api/commissions')
       .then(res => res.json())
       .then(data => setExpenses(data));
   }, []);

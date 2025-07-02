@@ -15,7 +15,7 @@ export default function InternetBillsPage() {
   const [expenses, setExpenses] = useState<InternetBillExpense[]>([]);
 
 
-  const API_URL = 'http://localhost:8080/api/internet-bills';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/internet-bills';
 
   // 🟢 Fetch expenses from backend
   const fetchExpenses = async () => {

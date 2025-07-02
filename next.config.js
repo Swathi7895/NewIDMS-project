@@ -4,9 +4,8 @@ const nextConfig = {
     domains: ['images.unsplash.com'],
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '8080',
+        protocol: 'https',
+        hostname: 'idmsbackend-production.up.railway.app',
         pathname: '/api/employees/download/**',
       },
     ],

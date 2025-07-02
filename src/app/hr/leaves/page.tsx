@@ -115,7 +115,7 @@ const LeaveManagementSystem = () => {
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/leave-requests/hr/all');
+        const res = await fetch('https://idmsbackend-production.up.railway.app/api/leave-requests/hr/all');
         if (!res.ok) throw new Error('Failed to fetch leave requests');
         const apiLeaves = await res.json();
         // Map API data to Leave interface
@@ -153,7 +153,7 @@ const LeaveManagementSystem = () => {
     if (window.confirm(`Are you sure you want to approve leave request ${leaveId}?`)) {
       try {
         // Call the approve API
-        const res = await fetch(`http://localhost:8080/api/leave-requests/hr/${leaveId}/approve?hrComments=Approved`, {
+        const res = await fetch(`https://idmsbackend-production.up.railway.app/api/leave-requests/hr/${leaveId}/approve?hrComments=Approved`, {
           method: 'PUT',
         });
         if (!res.ok) throw new Error('Failed to approve leave');
@@ -193,7 +193,7 @@ const LeaveManagementSystem = () => {
     if (reason) {
       try {
         // Call the reject API
-        const res = await fetch(`http://localhost:8080/api/leave-requests/hr/${leaveId}/reject?hrComments=${encodeURIComponent(reason)}`, {
+        const res = await fetch(`https://idmsbackend-production.up.railway.app/api/leave-requests/hr/${leaveId}/reject?hrComments=${encodeURIComponent(reason)}`, {
           method: 'PUT',
         });
         if (!res.ok) throw new Error('Failed to reject leave');
@@ -261,7 +261,7 @@ const LeaveManagementSystem = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:8080/api/holidays', {
+      const res = await fetch('https://idmsbackend-production.up.railway.app/api/holidays', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(holidayToAdd),
@@ -302,7 +302,7 @@ const LeaveManagementSystem = () => {
   useEffect(() => {
     const fetchHolidays = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/holidays');
+        const res = await fetch('https://idmsbackend-production.up.railway.app/api/holidays');
         if (!res.ok) throw new Error('Failed to fetch holidays');
         const apiHolidays = await res.json();
         // Map API data to Holiday interface
@@ -330,7 +330,7 @@ const LeaveManagementSystem = () => {
     if (typeof holidayId !== 'number') return;
     if (window.confirm('Are you sure you want to delete this holiday?')) {
       try {
-        const res = await fetch(`http://localhost:8080/api/holidays/${holidayId}`, {
+        const res = await fetch(`https://idmsbackend-production.up.railway.app/api/holidays/${holidayId}`, {
           method: 'DELETE',
         });
         if (!res.ok) throw new Error('Failed to delete holiday');
@@ -361,7 +361,7 @@ const LeaveManagementSystem = () => {
       return;
     }
     try {
-      const res = await fetch(`http://localhost:8080/api/holidays/${editHoliday.id}`, {
+      const res = await fetch(`https://idmsbackend-production.up.railway.app/api/holidays/${editHoliday.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

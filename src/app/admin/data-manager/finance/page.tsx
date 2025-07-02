@@ -37,7 +37,7 @@ export default function FinancePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = 'http://localhost:8080/api/financereports';
+  const API_URL = 'https://idmsbackend-production.up.railway.app/api/financereports';
 
   // --- Data Fetching (GET) ---
   const fetchReports = async () => {

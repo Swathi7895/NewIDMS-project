@@ -82,7 +82,7 @@ const transformActivityFromApiResponse = (apiActivity: ApiActivityResponse): Act
 
 type ModalType = 'add' | 'edit' | 'view';
 
-const API_BASE_URL = 'http://localhost:8080/api/activities';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api/activities';
 
 const activitiesAPI = {
   getAll: async (): Promise<Activity[]> => {

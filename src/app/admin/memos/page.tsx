@@ -63,7 +63,7 @@ interface SentMemo {
   totalRecipients: number;
 }
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://idmsbackend-production.up.railway.app/api';
 
 const formatDateArray = (dateArray: [number, number, number] | undefined) => {
     if (!dateArray || dateArray.length !== 3) return 'N/A';
